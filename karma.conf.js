@@ -20,5 +20,9 @@ module.exports = config => {
       // you can overwrite/extend the config further
     }),
   );
+
+  // Note(cg): remove coverage testing.
+  config.reporters.pop();
+
   return config;
 };

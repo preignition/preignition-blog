@@ -2,7 +2,7 @@ import { html, fixture, expect } from '@open-wc/testing';
 
 import '../preignition-blog-app.js';
 
-describe('PreignitionTemplate', () => {
+describe('PreignitionBlogApp', () => {
   it('has a default title "Hey there" and counter 5', async () => {
     const el = await fixture(html`
       <preignition-blog-app></preignition-blog-app>

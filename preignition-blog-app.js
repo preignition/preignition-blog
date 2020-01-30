@@ -1,3 +1,3 @@
-import BlogApp from './src/BlogApp.js';
+import BlogApp from './src/blogApp.js';
 
 window.customElements.define('preignition-blog-app', BlogApp);

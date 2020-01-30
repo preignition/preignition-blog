@@ -1,5 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
-
+import { Base } from './base.js';
 /*
   Blog App container
 

@@ -1,4 +1,6 @@
 dependencies:
+  '@morbidick/lit-element-notify': 1.0.2_lit-element@2.2.1+lit-html@1.1.2
+  '@preignition/preignition-mixin': 1.8.4
   lit-element: 2.2.1
   lit-html: 1.1.2
   prettier: 1.19.1
@@ -832,6 +834,16 @@ packages:
     dev: true
     resolution:
       integrity: sha512-jBD+G8+LWpMBBWvVcdr4QysjUE4mU/syrhN17o1u3gx0/WzJB1kwiVZAXRtWbsIPOwW8pF/YJV5+nmetPzepXg==
+  /@morbidick/lit-element-notify/1.0.2_lit-element@2.2.1+lit-html@1.1.2:
+    dependencies:
+      lit-element: 2.2.1
+      lit-html: 1.1.2
+    dev: false
+    peerDependencies:
+      lit-element: ^2.0.1
+      lit-html: ^1.0.0
+    resolution:
+      integrity: sha512-6yffws7SwHnB2RsRBNYAX6toM9YX8gBJdRqYoXYIOaBMRAuBKl440B0n3Gga4TtEchekpydaM+5ENwsyeKC/PQ==
   /@open-wc/building-utils/2.11.0:
     dependencies:
       '@babel/core': 7.8.4
@@ -963,6 +975,15 @@ packages:
       lit-html: '*'
     resolution:
       integrity: sha512-nH4/xW7iWjgBm+68mJPeG5daBjj122LpbCgYbRa5hED+nPqEkxqaHRGNd8P26VDhIpZnwZymzuq6SiXHhIh7Mg==
+  /@preignition/preignition-mixin/1.8.4:
+    dependencies:
+      d3-selection: 1.4.1
+      d3-transition: 1.3.2
+      lit-element: 2.2.1
+      lit-html: 1.1.2
+    dev: false
+    resolution:
+      integrity: sha512-qyayqSQ1gSnpK2btA0387hxVlVOsm8mowb2iIsh005xbnSC3w8E3rgMl6qB/VFUsXFUes/y+GEK/tLth6lk/Xw==
   /@rollup/plugin-node-resolve/6.1.0:
     dependencies:
       '@rollup/pluginutils': 3.0.6
@@ -2023,6 +2044,43 @@ packages:
     dev: true
     resolution:
       integrity: sha1-XQKkaFCt8bSjF5RqOSj8y1v9BCU=
+  /d3-color/1.4.0:
+    dev: false
+    resolution:
+      integrity: sha512-TzNPeJy2+iEepfiL92LAAB7fvnp/dV2YwANPVHdDWmYMm23qIJBYww3qT8I8C1wXrmrg4UWs7BKc2tKIgyjzHg==
+  /d3-dispatch/1.0.6:
+    dev: false
+    resolution:
+      integrity: sha512-fVjoElzjhCEy+Hbn8KygnmMS7Or0a9sI2UzGwoB7cCtvI1XpVN9GpoYlnb3xt2YV66oXYb1fLJ8GMvP4hdU1RA==
+  /d3-ease/1.0.6:
+    dev: false
+    resolution:
+      integrity: sha512-SZ/lVU7LRXafqp7XtIcBdxnWl8yyLpgOmzAk0mWBI9gXNzLDx5ybZgnRbH9dN/yY5tzVBqCQ9avltSnqVwessQ==
+  /d3-interpolate/1.4.0:
+    dependencies:
+      d3-color: 1.4.0
+    dev: false
+    resolution:
+      integrity: sha512-V9znK0zc3jOPV4VD2zZn0sDhZU3WAE2bmlxdIwwQPPzPjvyLkd8B3JUVdS1IDUFDkWZ72c9qnv1GK2ZagTZ8EA==
+  /d3-selection/1.4.1:
+    dev: false
+    resolution:
+      integrity: sha512-BTIbRjv/m5rcVTfBs4AMBLKs4x8XaaLkwm28KWu9S2vKNqXkXt2AH2Qf0sdPZHjFxcWg/YL53zcqAz+3g4/7PA==
+  /d3-timer/1.0.10:
+    dev: false
+    resolution:
+      integrity: sha512-B1JDm0XDaQC+uvo4DT79H0XmBskgS3l6Ve+1SBCfxgmtIb1AVrPIoqd+nPSv+loMX8szQ0sVUhGngL7D5QPiXw==
+  /d3-transition/1.3.2:
+    dependencies:
+      d3-color: 1.4.0
+      d3-dispatch: 1.0.6
+      d3-ease: 1.0.6
+      d3-interpolate: 1.4.0
+      d3-selection: 1.4.1
+      d3-timer: 1.0.10
+    dev: false
+    resolution:
+      integrity: sha512-sc0gRU4PFqZ47lPVHloMn9tlPcv8jxgOQg+0zjhfZXMQuvppjG6YuwdMBE0TuqCZjeJkLecku/l9R0JPcRhaDA==
   /dashdash/1.14.1:
     dependencies:
       assert-plus: 1.0.0
@@ -6857,11 +6915,13 @@ packages:
     resolution:
       integrity: sha512-v1yFnE4+u9za42gG/b/081E7uNW9mUj3qtkmelLbW5YPROZzSH/KUUyJu9Wt8vxFJcT9otL/eZopS0YK1L5yPQ==
 specifiers:
+  '@morbidick/lit-element-notify': ^1.0.2
   '@open-wc/eslint-config': ^2.0.0
   '@open-wc/prettier-config': ^0.1.10
   '@open-wc/testing': ^2.0.0
   '@open-wc/testing-karma': ^3.0.0
   '@open-wc/testing-karma-bs': ^1.0.0
+  '@preignition/preignition-mixin': ^1.8.4
   deepmerge: ^3.2.0
   es-dev-server: ^1.23.0
   eslint: ^6.1.0

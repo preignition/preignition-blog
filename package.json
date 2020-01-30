@@ -24,6 +24,8 @@
     "test:bs": "karma start karma.bs.config.js --coverage"
   },
   "dependencies": {
+    "@morbidick/lit-element-notify": "^1.0.2",
+    "@preignition/preignition-mixin": "^1.8.4",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
     "prettier": "^1.19.1"
@@ -47,11 +49,7 @@
     ]
   },
   "prettier": "@open-wc/prettier-config",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+
   "lint-staged": {
     "*.js": [
       "eslint --fix",
