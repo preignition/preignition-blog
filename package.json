@@ -2,7 +2,10 @@
   "name": "@preignition/template",
   "version": "0.0.0",
   "description": "Webcomponent preignition-template following open-wc recommendations",
-  "author": "preignition-template",
+  "author": {
+    "name": "christophe geiser",
+    "email": "christophe@preignition.org"
+  },
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
