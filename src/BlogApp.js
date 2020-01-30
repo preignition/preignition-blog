@@ -1,15 +1,23 @@
 import { html, css, LitElement } from 'lit-element';
 
-export class PreignitionTemplate extends LitElement {
+/*
+  Blog App container
+
+  root element containing Blog application
+ */
+
+export default class BlogApp extends LitElement {
   static get styles() {
     return css`
       :host {
-        --preignition-template-text-color: #000;
-
-        display: block;
-        padding: 25px;
-        color: var(--preignition-template-text-color);
       }
+    `;
+  }
+
+  render() {
+    return html`
+      <h2>${this.title} Nr. ${this.counter}!</h2>
+      <button @click=${this.__increment}>increment</button>
     `;
   }
 
@@ -28,12 +36,5 @@ export class PreignitionTemplate extends LitElement {
 
   __increment() {
     this.counter += 1;
-  }
-
-  render() {
-    return html`
-      <h2>${this.title} Nr. ${this.counter}!</h2>
-      <button @click=${this.__increment}>increment</button>
-    `;
   }
 }

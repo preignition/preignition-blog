@@ -2,7 +2,7 @@
   "version": 2,
   "tags": [
     {
-      "name": "preignition-template",
+      "name": "preignition-blog-app",
       "description": "A component with a title and an action counter",
       "properties": [
         {
@@ -22,7 +22,7 @@
       "slots": [],
       "cssProperties": [
         {
-          "name": "--preignition-template-text-color",
+          "name": "--preignition-blog-app-text-color",
           "description": "Main Text Color",
           "type": "Color"
         }

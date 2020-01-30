@@ -1,11 +1,11 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
-import '../preignition-template.js';
+import '../preignition-blog-app.js';
 
 describe('PreignitionTemplate', () => {
   it('has a default title "Hey there" and counter 5', async () => {
     const el = await fixture(html`
-      <preignition-template></preignition-template>
+      <preignition-blog-app></preignition-blog-app>
     `);
 
     expect(el.title).to.equal('Hey there');
@@ -14,7 +14,7 @@ describe('PreignitionTemplate', () => {
 
   it('increases the counter on button click', async () => {
     const el = await fixture(html`
-      <preignition-template></preignition-template>
+      <preignition-blog-app></preignition-blog-app>
     `);
     el.shadowRoot.querySelector('button').click();
 
@@ -23,7 +23,7 @@ describe('PreignitionTemplate', () => {
 
   it('can override the title via attribute', async () => {
     const el = await fixture(html`
-      <preignition-template title="attribute title"></preignition-template>
+      <preignition-blog-app title="attribute title"></preignition-blog-app>
     `);
 
     expect(el.title).to.equal('attribute title');
@@ -31,7 +31,7 @@ describe('PreignitionTemplate', () => {
 
   it('shows initially the text "hey there Nr. 5!" and an "increment" button', async () => {
     const el = await fixture(html`
-      <preignition-template></preignition-template>
+      <preignition-blog-app></preignition-blog-app>
     `);
 
     expect(el).shadowDom.to.equalSnapshot();
@@ -39,7 +39,7 @@ describe('PreignitionTemplate', () => {
 
   it('passes the a11y audit', async () => {
     const el = await fixture(html`
-      <preignition-template></preignition-template>
+      <preignition-blog-app></preignition-blog-app>
     `);
 
     await expect(el).shadowDom.to.be.accessible();
