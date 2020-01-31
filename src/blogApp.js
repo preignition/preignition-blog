@@ -64,6 +64,8 @@ class BlogApp extends Base {
     router.setRoutes([
       {path: '/',     component: 'preignition-posts'},
       {path: '/posts',  component: 'preignition-posts'},
+      // Note(cg): below route (with action) does not worlk. See 
+      // {path: '/post/:postID', action: (context) => html`<div>You've tried to access ${context.pathname}, but alas there is nothing there.</div>`},
       {path: '/post/:postID',  component: 'preignition-post'},
       {path: '/post-edit/:postID',  component: 'preignition-post-edit'},
       {path: '(.*)', redirect: '/', action: () => {
