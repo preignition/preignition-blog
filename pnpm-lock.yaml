@@ -1,9 +1,14 @@
 dependencies:
   '@morbidick/lit-element-notify': 1.0.2_lit-element@2.2.1+lit-html@1.1.2
   '@preignition/preignition-mixin': 1.8.4
+  '@vaadin/router': 1.6.0
+  '@vaadin/vaadin-tabs': 3.0.5
+  d3-selection: 1.4.1
+  d3-transition: 1.3.2
   lit-element: 2.2.1
   lit-html: 1.1.2
   prettier: 1.19.1
+  pwa-helpers: 0.9.1
 devDependencies:
   '@open-wc/eslint-config': 2.0.2
   '@open-wc/prettier-config': 0.1.13_eslint@6.8.0
@@ -975,6 +980,45 @@ packages:
       lit-html: '*'
     resolution:
       integrity: sha512-nH4/xW7iWjgBm+68mJPeG5daBjj122LpbCgYbRa5hED+nPqEkxqaHRGNd8P26VDhIpZnwZymzuq6SiXHhIh7Mg==
+  /@polymer/iron-flex-layout/3.0.1:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-7gB869czArF+HZcPTVSgvA7tXYFze9EKckvM95NB7SqYF+NnsQyhoXgKnpFwGyo95lUjUW9TFDLUwDXnCYFtkw==
+  /@polymer/iron-icon/3.0.1:
+    dependencies:
+      '@polymer/iron-flex-layout': 3.0.1
+      '@polymer/iron-meta': 3.0.1
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-QLPwirk+UPZNaLnMew9VludXA4CWUCenRewgEcGYwdzVgDPCDbXxy6vRJjmweZobMQv/oVLppT2JZtJFnPxX6g==
+  /@polymer/iron-iconset-svg/3.0.1:
+    dependencies:
+      '@polymer/iron-meta': 3.0.1
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-XNwURbNHRw6u2fJe05O5fMYye6GSgDlDqCO+q6K1zAnKIrpgZwf2vTkBd5uCcZwsN0FyCB3mvNZx4jkh85dRDw==
+  /@polymer/iron-meta/3.0.1:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-pWguPugiLYmWFV9UWxLWzZ6gm4wBwQdDy4VULKwdHCqR7OP7u98h+XDdGZsSlDPv6qoryV/e3tGHlTIT0mbzJA==
+  /@polymer/iron-resizable-behavior/3.0.1:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-FyHxRxFspVoRaeZSWpT3y0C9awomb4tXXolIJcZ7RvXhMP632V5lez+ch5G5SwK0LpnAPkg35eB0LPMFv+YMMQ==
+  /@polymer/polymer/3.3.1:
+    dependencies:
+      '@webcomponents/shadycss': 1.9.4
+    dev: false
+    resolution:
+      integrity: sha512-8KaB48tzyMjdsHdxo5KvCAaqmTe7rYDzQAoj/pyEfq9Fp4YfUaS+/xqwYj0GbiDAUNzwkmEQ7dw9cgnRNdKO8A==
   /@preignition/preignition-mixin/1.8.4:
     dependencies:
       d3-selection: 1.4.1
@@ -1059,6 +1103,85 @@ packages:
     dev: true
     resolution:
       integrity: sha512-EZQUP3hSZQyTQRfiLqelC9NMWd1kqLcmQE0dMiklxBkgi84T+cHOhnKpgk4NnOWpGX863yE6+IaGnOXUNFqDnQ==
+  /@vaadin/router/1.6.0:
+    dependencies:
+      '@vaadin/vaadin-usage-statistics': 2.1.0
+      path-to-regexp: 2.4.0
+    dev: false
+    resolution:
+      integrity: sha512-uBmk84cSQt4BwFJE/n3SutAd3TSzUceQsbMIN3ss9bjuhAcSXPJoX39uaUiQrAtdz44TlveEzYuzNgPStQqWmA==
+  /@vaadin/vaadin-development-mode-detector/2.0.4:
+    dev: false
+    resolution:
+      integrity: sha512-S+PaFrZpK8uBIOnIHxjntTrgumd5ztuCnZww96ydGKXgo9whXfZsbMwDuD/102a/IuPUMyF+dh/n3PbWzJ6igA==
+  /@vaadin/vaadin-element-mixin/2.3.0:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+      '@vaadin/vaadin-development-mode-detector': 2.0.4
+      '@vaadin/vaadin-usage-statistics': 2.1.0
+    dev: false
+    resolution:
+      integrity: sha512-9gQb6Y3c/KlkJkITr+JncBZQ3iAjLpU/B6Ykeis+AHjPn6p+f4x3xsJ09IJKtb5YqD5wy9Zu7ANdM++97abQ2g==
+  /@vaadin/vaadin-item/2.1.1:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+      '@vaadin/vaadin-lumo-styles': 1.6.0
+      '@vaadin/vaadin-material-styles': 1.3.2
+      '@vaadin/vaadin-themable-mixin': 1.5.2
+    dev: false
+    resolution:
+      integrity: sha512-uWwsSDoOtjiiHjmEANP29JMacJoSeO5kHCTYyqdVu0fQoT6WalLV1aQWIEJUmVSp2MnB3qRziYpAw3igF9uXxw==
+  /@vaadin/vaadin-list-mixin/2.3.1:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-b6VIzGfmUKcynlZ1OBvryzv9/5WFmaE1gGbNCnvB4bv6Vqvh5ZOI8eBAAKYZ3DgnB2hq1cTh5+0pYQvfuh81fw==
+  /@vaadin/vaadin-lumo-styles/1.6.0:
+    dependencies:
+      '@polymer/iron-icon': 3.0.1
+      '@polymer/iron-iconset-svg': 3.0.1
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-MTJ2JssEVF3Go5b+zIe86Jw8nNtaN91wHmO2Ic1eI27PEJ5dRRGcLWX9CjTEx/8Zu9+3Fk4YeVP9ABWhiZZGUw==
+  /@vaadin/vaadin-material-styles/1.3.2:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+    dev: false
+    resolution:
+      integrity: sha512-EFrvGScoxhLNrPnWtT2Ia77whjF2TD4jrcyeh1jv9joCA2n5SUba+4XJciVSGmopqqQato6lwRnZSvMLJX7cyw==
+  /@vaadin/vaadin-tabs/3.0.5:
+    dependencies:
+      '@polymer/iron-resizable-behavior': 3.0.1
+      '@polymer/polymer': 3.3.1
+      '@vaadin/vaadin-element-mixin': 2.3.0
+      '@vaadin/vaadin-item': 2.1.1
+      '@vaadin/vaadin-list-mixin': 2.3.1
+      '@vaadin/vaadin-lumo-styles': 1.6.0
+      '@vaadin/vaadin-material-styles': 1.3.2
+      '@vaadin/vaadin-themable-mixin': 1.5.2
+    dev: false
+    resolution:
+      integrity: sha512-ptCOJFwV3TN/csD0TRdr24tAIFyb/IuV8py3jcoMbgMwS3QiwOcpiQ+WRKoVCr87d8wBbIPN7CQ2bopFyYbCpA==
+  /@vaadin/vaadin-themable-mixin/1.5.2:
+    dependencies:
+      '@polymer/polymer': 3.3.1
+      lit-element: 2.2.1
+    dev: false
+    resolution:
+      integrity: sha512-3EsVOhE5lo/nRyX27+nOyPNsV5TtKInTKirldUqucGZZtcyWT4ZxqAxswIz3bAolnb17UDb8eJKHOH6ERMLEhg==
+  /@vaadin/vaadin-usage-statistics/2.1.0:
+    dependencies:
+      '@vaadin/vaadin-development-mode-detector': 2.0.4
+    dev: false
+    requiresBuild: true
+    resolution:
+      integrity: sha512-e81nbqY5zsaYhLJuOVkJkB/Um1pGK5POIqIlTNhUfjeoyGaJ63tiX8+D5n6F+GgVxUTLUarsKa6SKRcQel0AzA==
+  /@webcomponents/shadycss/1.9.4:
+    dev: false
+    resolution:
+      integrity: sha512-tgNcVEaKssyeZPbUBjVQf4aryO5Fi7fxRvOxV982ZJuRVDcefmIblBh0SXAbcvAAlQ2zpNEP4SuQUnr8uApIpw==
   /@webcomponents/webcomponentsjs/2.4.1:
     dev: true
     resolution:
@@ -5174,6 +5297,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  /path-to-regexp/2.4.0:
+    dev: false
+    resolution:
+      integrity: sha512-G6zHoVqC6GGTQkZwF4lkuEyMbVOjoBKAEybQUypI1WTkqinCOrq2x6U2+phkJ1XsEMTy4LjtwPI7HW+NVrRR2w==
   /path-type/1.1.0:
     dependencies:
       graceful-fs: 4.2.3
@@ -5352,6 +5479,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+  /pwa-helpers/0.9.1:
+    dev: false
+    resolution:
+      integrity: sha512-4sP/C9sSxQ3w80AATmvCEI3R+MHzCwr2RSZEbLyMkeJgV3cRk7ySZRUrQnBDSA7A0/z6dkYtjuXlkhN1ZFw3iA==
   /q/1.5.1:
     dev: true
     engines:
@@ -6922,6 +7053,10 @@ specifiers:
   '@open-wc/testing-karma': ^3.0.0
   '@open-wc/testing-karma-bs': ^1.0.0
   '@preignition/preignition-mixin': ^1.8.4
+  '@vaadin/router': ^1.6.0
+  '@vaadin/vaadin-tabs': ^3.0.5
+  d3-selection: ^1.4.1
+  d3-transition: ^1.3.2
   deepmerge: ^3.2.0
   es-dev-server: ^1.23.0
   eslint: ^6.1.0
@@ -6930,3 +7065,4 @@ specifiers:
   lit-element: ^2.2.1
   lit-html: ^1.1.2
   prettier: ^1.19.1
+  pwa-helpers: ^0.9.1

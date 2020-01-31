@@ -1,1 +1,2 @@
-export { default as BlogApp } from './src/blogApp.js';
+import './index.elements.js'
+export * from './index.class.js';

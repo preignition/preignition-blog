@@ -1,4 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
+import { Router } from '@vaadin/router';
+import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
 /*
   Blog App container
@@ -6,7 +8,7 @@ import { Base } from './base.js';
   root element containing Blog application
  */
 
-export default class BlogApp extends LitElement {
+class BlogApp extends Base {
   static get styles() {
     return css`
       :host {
@@ -16,25 +18,64 @@ export default class BlogApp extends LitElement {
 
   render() {
     return html`
-      <h2>${this.title} Nr. ${this.counter}!</h2>
-      <button @click=${this.__increment}>increment</button>
+      <h2>Blog App</h2>
+
+      <vaadin-tabs class="${this.smallScreen ? 'nav' : ''}" orientation="${this.smallScreen ? 'vertical' : 'horizontal'}" selected=${this.tabs.indexOf(this.activeTab)} theme="${this.smallScreen ? '' : 'centered'}">
+        <vaadin-tab @click=${() => this.switchRoute('posts')}>Posts</vaadin-tab>
+        <vaadin-tab @click=${() => this.switchRoute('post/123')}>Post</vaadin-tab>
+      </vaadin-tabs>
+
+      <div id="outlet">
+      </div>
     `;
   }
 
   static get properties() {
     return {
-      title: { type: String },
-      counter: { type: Number },
+      activeTab: { type: String },
+      tabs: { type: Array },
+      smallScreen: { type: Boolean },
+
+      /*
+       * `baseURL` 
+       */
+      baseURL: {
+        type: String,
+        attribute: 'base-url'
+      },
     };
   }
 
   constructor() {
     super();
-    this.title = 'Hey there';
-    this.counter = 5;
+    this.activeTab = location.pathname === '/' ? 'posts' : location.pathname.replace('/', '');
+    this.tabs = ['posts', 'post', 'post-edit'];
+
+    installMediaQueryWatcher(`(min-width: 600px)`, (matches) => {
+      this.smallScreen = !matches;
+    });
   }
 
-  __increment() {
-    this.counter += 1;
+  firstUpdated() {
+    const router = new Router(this.shadowRoot.getElementById('outlet'), {baseURL: this.baseUrl || '/'});
+    router.setRoutes([
+      {path: '/',     component: 'preignition-posts'},
+      {path: '/posts',  component: 'preignition-posts'},
+      {path: '/post/:postID',  component: 'preignition-post'},
+      {path: '/post-edit/:postID',  component: 'preignition-post-edit'},
+      {path: '(.*)', redirect: '/', action: () => {
+        this.activeTab = 'posts';
+        }
+      }
+    ]);
   }
+
+  switchRoute(route) {
+    this.activeTab = route;
+    Router.go(`/${route}`); 
+  }
+
 }
+
+export default BlogApp;
+

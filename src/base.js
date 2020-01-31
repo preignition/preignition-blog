@@ -8,7 +8,7 @@
 
 import { LitElement } from 'lit-element';
 import { SelectMixin, DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
-import { LitNotify, LitSync } from '@morbidick/lit-element-notify';
+import { LitNotify } from '@morbidick/lit-element-notify';
 
 const deep = (action, obj, keys, id, key) => {
   keys = keys.split(".");
