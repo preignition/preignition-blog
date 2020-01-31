@@ -8,6 +8,7 @@ import { Base } from './base.js';
   root element containing Blog application
  */
 
+
 class BlogApp extends Base {
   static get styles() {
     return css`

@@ -7,7 +7,8 @@
  */
 
 import { LitElement } from 'lit-element';
-import { SelectMixin, DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
+// import { SelectMixin, DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
+import { DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
 import { LitNotify } from '@morbidick/lit-element-notify';
 
 const deep = (action, obj, keys, id, key) => {
@@ -23,9 +24,9 @@ const set = n => (obj, prop) => (obj[prop] = n);
 export class Base extends
 LitNotify(
   DefaultValueMixin(
-    SelectMixin(
+    // SelectMixin(
       DoNotSetUndefinedValue(
-        LitElement)))) {
+        LitElement))) {
 
   dispatch(name) {
     this.dispatchEvent(new CustomEvent(`${name}-changed`, {

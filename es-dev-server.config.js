@@ -2,7 +2,7 @@
 module.exports = {
   moduleDirs: ['node_modules'],
   watch: true,
-  nodeResolve: true,
+  // nodeResolve: true,
   appIndex: 'index.html'
   // preserveSymlinks: true,
   // customMiddlewares: [
