@@ -2,6 +2,7 @@ import { html, css, LitElement } from 'lit-element';
 import { Router } from '@vaadin/router';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
+import '@vaadin/vaadin-tabs';
 /*
   Blog App container
 
@@ -22,7 +23,8 @@ class BlogApp extends Base {
       <h2>Blog App</h2>
 
       <vaadin-tabs class="${this.smallScreen ? 'nav' : ''}" orientation="${this.smallScreen ? 'vertical' : 'horizontal'}" selected=${this.tabs.indexOf(this.activeTab)} theme="${this.smallScreen ? '' : 'centered'}">
-        <vaadin-tab @click=${() => this.switchRoute('posts')}>Posts</vaadin-tab>
+        <vaadin-tab><a href="posts">Posts</a></vaadin-tab>
+        <vaadin-tab><a href="post/123">Post 123 Link</a></vaadin-tab>
         <vaadin-tab @click=${() => this.switchRoute('post/123')}>Post</vaadin-tab>
       </vaadin-tabs>
 
@@ -58,7 +60,7 @@ class BlogApp extends Base {
   }
 
   firstUpdated() {
-    const router = new Router(this.shadowRoot.getElementById('outlet'), {baseURL: this.baseUrl || '/'});
+    const router = new Router(this.shadowRoot.getElementById('outlet'), {baseUrl: this.baseURL || '/'});
     router.setRoutes([
       {path: '/',     component: 'preignition-posts'},
       {path: '/posts',  component: 'preignition-posts'},
