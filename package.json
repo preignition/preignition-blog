@@ -27,7 +27,6 @@
     "@morbidick/lit-element-notify": "^1.0.2",
     "@preignition/preignition-mixin": "^1.8.4",
     "@vaadin/router": "^1.6.0",
-    "@vaadin/vaadin-tabs": "^3.0.5",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
     "prettier": "^1.19.1",
@@ -52,7 +51,6 @@
       "@morbidick/lit-element-notify",
       "@preignition/preignition-mixin",
       "@vaadin/router",
-      "@vaadin/vaadin-tabs",
       "pwa-helpers/media-query.js",
       "lit-element",
       "lit-html"

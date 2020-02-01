@@ -2,7 +2,6 @@ import { html, css, LitElement } from 'lit-element';
 import { Router } from '@vaadin/router';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
-import '@vaadin/vaadin-tabs';
 /*
   Blog App container
 
@@ -14,6 +13,20 @@ class BlogApp extends Base {
   static get styles() {
     return css`
       :host {
+        --paper-tabs-selection-bar-color: var(--accent-color);
+      }
+      paper-tabs {
+         background-color: var(--primary-color);
+         color: #fff;
+      }
+
+      paper-tab[link] a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-decoration: none;
       }
     `;
   }
@@ -22,11 +35,11 @@ class BlogApp extends Base {
     return html`
       <h2>Blog App</h2>
 
-      <vaadin-tabs @selected-change="${this.tabChanged}" class="${this.smallScreen ? 'nav' : ''}" orientation="${this.smallScreen ? 'vertical' : 'horizontal'}" selected=${this.tabs.indexOf(this.activeTab)} theme="${this.smallScreen ? '' : 'centered'}">
-        <vaadin-tab><a href="articles">articles</a></vaadin-tab>
-        <vaadin-tab><a href="article/123">article 123 Link</a></vaadin-tab>
-        <vaadin-tab @click=${() => this.switchRoute('article/123')}>article</vaadin-tab>
-      </vaadin-tabs>
+      <paper-tabs class="${this.smallScreen ? 'nav' : ''}" selected=${this.tabs.indexOf(this.activeTab)} theme="${this.smallScreen ? '' : 'centered'}">
+        <paper-tab link><a href="articles" tabindex="-1">articles</a></paper-tab>
+        <paper-tab link><a href="article/123" tabindex="-1">article 123 Link</a></paper-tab>
+        <paper-tab link @click=${() => this.switchRoute('article/123')}>article</paper-tab>
+      </paper-tabs>
 
       ${this.activeTab === 'articles'? html`<preignition-articles></preigntion-articles>` : ''}
       ${this.activeTab === 'article'? html`<preignition-article .articleID="${this.articleID}"></preigntion-article>` : ''}
@@ -93,10 +106,6 @@ class BlogApp extends Base {
         }
       }
     ], true);
-  }
-
-  tabChanged(e) {
-    console.info('tabChanged', e.details);
   }
 
   switchRoute(route) {
