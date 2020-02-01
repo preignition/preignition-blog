@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 import { Base } from './base.js';
 
-class PreignitionPosts extends Base {
+class PreignitionArticles extends Base {
 
   /**
    * Implement `render` to define a template for your element.
@@ -9,9 +9,9 @@ class PreignitionPosts extends Base {
   render() {
     return html`
       <!-- template content -->
-      <p>Posts</p>
+      <p>articles</p>
     `;
   }
 }
 
-export default PreignitionPosts;
+export default PreignitionArticles;

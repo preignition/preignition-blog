@@ -22,12 +22,15 @@ class BlogApp extends Base {
     return html`
       <h2>Blog App</h2>
 
-      <vaadin-tabs class="${this.smallScreen ? 'nav' : ''}" orientation="${this.smallScreen ? 'vertical' : 'horizontal'}" selected=${this.tabs.indexOf(this.activeTab)} theme="${this.smallScreen ? '' : 'centered'}">
-        <vaadin-tab><a href="posts">Posts</a></vaadin-tab>
-        <vaadin-tab><a href="post/123">Post 123 Link</a></vaadin-tab>
-        <vaadin-tab @click=${() => this.switchRoute('post/123')}>Post</vaadin-tab>
+      <vaadin-tabs @selected-change="${this.tabChanged}" class="${this.smallScreen ? 'nav' : ''}" orientation="${this.smallScreen ? 'vertical' : 'horizontal'}" selected=${this.tabs.indexOf(this.activeTab)} theme="${this.smallScreen ? '' : 'centered'}">
+        <vaadin-tab><a href="articles">articles</a></vaadin-tab>
+        <vaadin-tab><a href="article/123">article 123 Link</a></vaadin-tab>
+        <vaadin-tab @click=${() => this.switchRoute('article/123')}>article</vaadin-tab>
       </vaadin-tabs>
 
+      ${this.activeTab === 'articles'? html`<preignition-articles></preigntion-articles>` : ''}
+      ${this.activeTab === 'article'? html`<preignition-article .articleID="${this.articleID}"></preigntion-article>` : ''}
+      
       <div id="outlet">
       </div>
     `;
@@ -39,6 +42,9 @@ class BlogApp extends Base {
       tabs: { type: Array },
       smallScreen: { type: Boolean },
 
+      articleID: {
+        type: String
+      },
       /*
        * `baseURL` 
        */
@@ -51,8 +57,8 @@ class BlogApp extends Base {
 
   constructor() {
     super();
-    this.activeTab = location.pathname === '/' ? 'posts' : location.pathname.replace('/', '');
-    this.tabs = ['posts', 'post', 'post-edit'];
+    this.activeTab = location.pathname === '/' ? 'articles' : location.pathname.replace('/', '');
+    this.tabs = ['articles', 'article', 'article-edit'];
 
     installMediaQueryWatcher(`(min-width: 600px)`, (matches) => {
       this.smallScreen = !matches;
@@ -62,17 +68,35 @@ class BlogApp extends Base {
   firstUpdated() {
     const router = new Router(this.shadowRoot.getElementById('outlet'), {baseUrl: this.baseURL || '/'});
     router.setRoutes([
-      {path: '/',     component: 'preignition-posts'},
-      {path: '/posts',  component: 'preignition-posts'},
+      {path: '/',  action: () => {
+        this.articleID = '';
+        this.activeTab = 'articles';
+      },   _component: 'preignition-articles'},
+      {path: '/articles', action: (context,commands) => {
+        this.articleID = '';
+        this.activeTab = 'articles';
+        return commands.component('div') 
+      }, _component: 'preignition-articles'},
       // Note(cg): below route (with action) does not worlk. See 
-      // {path: '/post/:postID', action: (context) => html`<div>You've tried to access ${context.pathname}, but alas there is nothing there.</div>`},
-      {path: '/post/:postID',  component: 'preignition-post'},
-      {path: '/post-edit/:postID',  component: 'preignition-post-edit'},
+      {path: '/article/:articleID', action: (context, commands) =>  {
+        console.info(context, commands);  
+        this.articleID = context.params.articleID;
+        this.activeTab = 'article';
+        return commands.component('div') 
+        // return context.next();
+        // return html`<div>You've tried to access ${context.pathname}, but alas there is nothing there.</div>`
+        }
+      },
+      {path: '/article-edit/:articleID',  component: 'preignition-article-edit'},
       {path: '(.*)', redirect: '/', action: () => {
-        this.activeTab = 'posts';
+        this.activeTab = 'articles';
         }
       }
-    ]);
+    ], true);
+  }
+
+  tabChanged(e) {
+    console.info('tabChanged', e.details);
   }
 
   switchRoute(route) {

@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 import { Base } from './base.js';
 
-class PreignitionPost extends Base {
+class PreignitionArticle extends Base {
 
   /**
    * Implement `render` to define a template for your element.
@@ -9,7 +9,7 @@ class PreignitionPost extends Base {
   render() {
     return html`
       <!-- template content -->
-      <p>Post ${this.location.params.postID}</p>
+      <p>article ${this.articleID}</p>
     `;
   }
 
@@ -18,9 +18,9 @@ class PreignitionPost extends Base {
 
       ...super.properties, 
 
-      postID: {
+      articleID: {
         type: String, 
-        attribute: 'post-id'
+        attribute: 'article-id'
       },
 
       location: {
@@ -30,4 +30,4 @@ class PreignitionPost extends Base {
   }
 }
 
-export default PreignitionPost;
+export default PreignitionArticle;

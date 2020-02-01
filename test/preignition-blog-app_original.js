@@ -1,6 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
-import '../elements/preignition-blog-app.js';
+import '../preignition-blog-app.js';
 
 describe('PreignitionBlogApp', () => {
   it('has a default title "Hey there" and counter 5', async () => {
