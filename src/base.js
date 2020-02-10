@@ -6,10 +6,14 @@
 
  */
 
-import { LitElement } from 'lit-element';
+import { LitElement, css } from 'lit-element';
 // import { SelectMixin, DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
 import { DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
 import { LitNotify } from '@morbidick/lit-element-notify';
+
+import { default as typography} from './styles/material/typography.js';
+import { default as globalStyle} from './styles/material/global.js';
+
 
 const deep = (action, obj, keys, id, key) => {
   keys = keys.split(".");
@@ -44,6 +48,13 @@ LitNotify(
 
   set(path, value) {
     return deep(set(value), this, path);
+  }
+
+  static get styles() {
+    return [
+      globalStyle,
+      typography
+    ];
   }
 
   static get properties() {

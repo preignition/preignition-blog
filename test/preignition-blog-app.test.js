@@ -1,40 +1,32 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, elementUpdated, aTimeout } from '@open-wc/testing';
 
 import '../elements/preignition-blog-app.js';
 
 describe('PreignitionBlogApp', () => {
-  it('has a default title "Hey there" and counter 5', async () => {
+  it('displays article when article tab is selected', async () => {
     const el = await fixture(html`
       <preignition-blog-app></preignition-blog-app>
     `);
 
-    expect(el.title).to.equal('Hey there');
-    expect(el.counter).to.equal(5);
-  });
+    // Note(cg): seems unable to select by role.
+    // const tabs = el.shadowRoot.querySelector('[role="tablist"]');
+    const tabs = el.shadowRoot.querySelector('paper-tabs');
+    expect(tabs).to.exist;
 
-  it('increases the counter on button click', async () => {
-    const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
-    `);
-    el.shadowRoot.querySelector('button').click();
+    const tab = tabs.querySelectorAll('paper-tab')[0];
+    expect(tab).to.exist;
 
-    expect(el.counter).to.equal(6);
-  });
+    tab.click();
 
-  it('can override the title via attribute', async () => {
-    const el = await fixture(html`
-      <preignition-blog-app title="attribute title"></preignition-blog-app>
-    `);
+    await elementUpdated(el);
+    // await aTimeout(500);
+    
+    const article = el.shadowRoot.querySelector('preignition-articles');
+    expect(article).to.exist;
 
-    expect(el.title).to.equal('attribute title');
-  });
-
-  it('shows initially the text "hey there Nr. 5!" and an "increment" button', async () => {
-    const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
-    `);
-
-    expect(el).shadowDom.to.equalSnapshot();
+    // Note(cg): routing does not seem to work the same way.
+    // const href = tab.querySelector('a').getAttribute('href');
+    // expect(window.location.pathname).to.equal(href);
   });
 
   it('passes the a11y audit', async () => {

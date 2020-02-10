@@ -2,6 +2,8 @@ import { html, css, LitElement } from 'lit-element';
 import { Router } from '@vaadin/router';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
+
+
 /*
   Blog App container
 
@@ -11,10 +13,24 @@ import { Base } from './base.js';
 
 class BlogApp extends Base {
   static get styles() {
-    return css`
+    return [
+    super.styles, 
+    css`
       :host {
         --paper-tabs-selection-bar-color: var(--accent-color);
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        margin: 0;
+        color: var(--primary-text-color, #212121);
+  
       }
+
+      .sub-title {
+        color: var(--secondary-text-color);
+      }
+
+     
       paper-tabs {
          background-color: var(--primary-color);
          color: #fff;
@@ -28,22 +44,89 @@ class BlogApp extends Base {
         color: #fff;
         text-decoration: none;
       }
-    `;
+      
+      /* we used <div id="main"> instead of <main> 
+       * because we want to keep main at appliction level.
+       */
+      #main {
+        display: flex;
+        flex: 1;
+        box-sizing: border-box;
+      }
+      #main > * {
+        box-sizing: border-box;
+      }
+      
+      #main > section {
+        flex: 1;
+      }
+      
+      #main > nav, 
+      #main > aside {
+        flex: 0 0 20vw;
+        max-width: 380px;  
+      }
+      
+      #main > nav {
+        order: -1;
+      }
+      
+      header, footer {
+        // background: var(--light-primary-color);
+        height: 20vh;
+      }
+
+      header {
+        text-align: center;
+      }
+
+      header .title {
+        margin-top: 20px;
+        font-size: 60px;
+      }
+      
+      header, footer, article, nav, aside, section {
+        padding: 1em;
+      }
+      
+      @media screen and (max-width: 992px) {
+        #main {
+          display: block;
+        }
+        #main > nav, 
+        #main > aside {
+          max-width: initial;  
+        }
+      }
+    `];
   }
 
   render() {
     return html`
-      <h2>Blog App</h2>
-
-      <paper-tabs class="${this.smallScreen ? 'nav' : ''}" selected=${this.tabs.indexOf(this.activeTab)} theme="${this.smallScreen ? '' : 'centered'}">
-        <paper-tab link><a href="articles" tabindex="-1">articles</a></paper-tab>
-        <paper-tab link><a href="article/123" tabindex="-1">article 123 Link</a></paper-tab>
-        <paper-tab link @click=${() => this.switchRoute('article/123')}>article</paper-tab>
-      </paper-tabs>
-
-      ${this.activeTab === 'articles'? html`<preignition-articles></preigntion-articles>` : ''}
-      ${this.activeTab === 'article'? html`<preignition-article .articleID="${this.articleID}"></preigntion-article>` : ''}
+      ${this.activeTab === 'articles' ? html `
+      <header>
+        <h1 class="title">${this.appTitle}</h1>
+        <h3 class="sub-title">${this.appSubTitle}</h2>
+      </header>` : ''}
       
+      
+      <div id="main">
+        <section>
+          ${this.activeTab === 'article' ? html`<preignition-article .language="${this.language}" .articleID="${this.articleID}"></preigntion-article>` : ''}
+          ${this.activeTab === 'articles' ? html`<preignition-articles .language="${this.language}" ></preigntion-articles>` : ''}
+        </section>
+        <!--aside>
+           <h3>Aside</h3>
+           <preignition-blog-aside></preigntion-blog-aside>
+        </aside-->
+      </div>
+
+      <div id="actions"></div>
+      
+      <!--footer>
+          <h3>Footer</h3>
+      </footer-->    
+  
       <div id="outlet">
       </div>
     `;
@@ -55,6 +138,18 @@ class BlogApp extends Base {
       tabs: { type: Array },
       smallScreen: { type: Boolean },
 
+      appTitle: {
+        type: String,
+        attribute: 'app-title',
+        value: 'Ida-ta Blog'
+      },
+
+      appSubTitle: {
+        type: String,
+        value: 'Our latest news, updates, and stories about ida-ta',
+        attribute: 'app-sub-title'
+      },
+
       articleID: {
         type: String
       },
@@ -65,20 +160,30 @@ class BlogApp extends Base {
         type: String,
         attribute: 'base-url'
       },
+
+      /*
+       * `blogName` give this blog a name
+       * usefull for registering users
+       */
+      blogName: {
+        type: String,
+      },
     };
   }
 
   constructor() {
     super();
-    this.activeTab = location.pathname === '/' ? 'articles' : location.pathname.replace('/', '');
+    // this.activeTab = location.pathname === '/' ? 'articles' : location.pathname.replace('/', '');
     this.tabs = ['articles', 'article', 'article-edit'];
+    // this.activeTab = 'articles';
+    this.language = 'en';
 
     installMediaQueryWatcher(`(min-width: 600px)`, (matches) => {
       this.smallScreen = !matches;
     });
   }
 
-  firstUpdated() {
+  setRouter() {
     const router = new Router(this.shadowRoot.getElementById('outlet'), {baseUrl: this.baseURL || '/'});
     router.setRoutes([
       {path: '/',  action: () => {
@@ -108,8 +213,26 @@ class BlogApp extends Base {
     ], true);
   }
 
+  firstUpdated() {
+    this.setRouter();
+    if (location.pathname.startsWith(this.baseURL)) {
+      Router.go(location.pathname);   
+    } else {
+      this.activeTab = "articles";
+    }
+    
+  }
+
+  onTabChanged(e) {
+    this.log && console.info(e);
+    const {selectedItem} = e.target;
+    if (selectedItem && selectedItem.querySelector('[href]')) {
+      const href = selectedItem.querySelector('[href]').getAttribute('href')
+      Router.go(`${this.baseURL || ''}${href}`)
+    }
+  }
+
   switchRoute(route) {
-    this.activeTab = route;
     Router.go(`/${route}`); 
   }
 

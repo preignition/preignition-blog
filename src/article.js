@@ -1,15 +1,95 @@
-import { html } from 'lit-element';
+import { html, css } from 'lit-element';
+import  { default as marked}  from 'marked';
 import { Base } from './base.js';
 
+import "@lit-element-bootstrap/breadcrumb";
+
 class PreignitionArticle extends Base {
+
+   static get styles() {
+    return [
+    super.styles, 
+    css `
+      :host {
+        display: block;
+        border-sizing: border-box;
+        position:relative;
+      }
+
+      .hero {
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+        max-height: 480px;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        vertical-align: middle;
+        margin-bottom: 50px;
+      }
+
+      preignition-article-author {
+        --author-image-size: 60px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+
+      article.main {
+        max-width: 992px;
+        margin: auto;
+      }
+
+      .summary {
+        color: var(--secondary-text-color);
+      }
+
+      bs-breadcrumb {
+        background-color: inherit;
+        --breadcrumb-padding-left: 0;
+        --breadcrumb-item-link-color: var(--secondary-text-color);
+        --breadcrumb-divider: ">";
+      }
+
+       @media screen and (max-width: 992px) {
+        article.main {
+            margin: 0 20px;
+          }
+       }
+
+      `];
+   }
+
+
 
   /**
    * Implement `render` to define a template for your element.
    */
   render() {
     return html`
-      <!-- template content -->
-      <p>article ${this.articleID}</p>
+      <lit-firebase-document log path="/resources/published/article/${this.articleID}" @data-changed="${ e => {this.article = e.detail.value}}"></lit-firebase-document>
+      <lit-firebase-document log path="/locale/published/article/${this.articleID}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lit-firebase-document>
+      
+      ${this.article && this.article.articleMainImage ? html `<img class="hero" src="${this.article && this.article.articleMainImage.url}" alt='${this.localeArticle && this.localeArticle.articleMainImageAlt}'>` : ''}  
+      <article class="main">
+        
+         <nav>
+          <bs-breadcrumb>
+            <bs-breadcrumb-item title="Home" href="./"></bs-breadcrumb-item>
+            <bs-breadcrumb-item title="All Articles" href="./articles" ></bs-breadcrumb-item>
+          </bs-breadcrumb>
+        </nav>
+
+        ${this.localeArticle 
+          ? html `
+            <h1 class="title">${this.localeArticle.title}</h1>
+            <h3 class="summary">${ html([marked(this.localeArticle.summary || '')])}</h3>
+            <preignition-article-author .articleID="${this.articleID}"></preignition-article-author>
+            <div class="content">${ html([marked(this.localeArticle.content || '')])}</div>
+            `
+          : html `<h3>Loading article ...</h3>`
+        }
+     </article>
+
     `;
   }
 
@@ -23,8 +103,16 @@ class PreignitionArticle extends Base {
         attribute: 'article-id'
       },
 
-      location: {
+      article: {
         type: Object
+      },
+
+       localeArticle: {
+        type: Object
+      },
+      
+      language: {
+        type: String
       }
     }
   }

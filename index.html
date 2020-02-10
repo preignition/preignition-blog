@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
+
 <head>
+  <title>Blog App Demo and dev page</title>
   <base href="/demo/">
   <meta charset="utf-8">
   <style>
@@ -9,43 +11,64 @@
     }
   </style>
 </head>
-  <script type="importmap" >
-     {
+<script type="importmap">
+  {
       "imports": {
         "@morbidick/lit-element-notify": "/web_modules/@morbidick/lit-element-notify.js",
         "@preignition/preignition-mixin": "/web_modules/@preignition/preignition-mixin.js",
+        "@preignition/lit-firebase": "/web_modules/@preignition/lit-firebase.js",
         "@vaadin/router": "/web_modules/@vaadin/router.js",
         "@vaadin/vaadin-tabs": "/web_modules/@vaadin/vaadin-tabs.js",
         "pwa-helpers/media-query.js": "/web_modules/pwa-helpers/media-query.js",
+        "marked": "/web_modules/marked.js",
         "lit-element": "/web_modules/lit-element.js",
-        "lit-html": "/web_modules/lit-html.js"
+        "lit-html": "/web_modules/lit-html.js",
+        "@lit-element-bootstrap/breadcrumb" : "/web_modules/@lit-element-bootstrap/breadcrumb.js"
     }
   }
   </script>
+<script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+<script src="/node_modules/firebase/firebase-app.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="/node_modules/firebase/firebase-auth.js"></script>
+<script src="/node_modules/firebase/firebase-database.js"></script>
+<script src="/initializeFirebase.js"></script>
+<!-- Import required Polymer components  -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="/bower_components/polymerfire/firebase-query.html">
+<!-- Styles -->
+<!-- <link rel="import" href="/bower_components/paper-styles/classes/global.html"> -->
+ <!-- <link rel="import" href="/bower_components/paper-styles/shadow.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-styles/typography.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-styles/default-theme.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-styles/element-styles/paper-item-styles.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-styles/element-styles/paper-material-styles.html"> -->
+
+<style>
+  body {
+      margin: 0;
+    }
   
-  <script src="/node_modules/firebase/firebase-app.js"></script>
-
-  <!-- Add Firebase products that you want to use -->
-  <script src="/node_modules/firebase/firebase-auth.js"></script>
-  <script src="/node_modules/firebase/firebase-database.js"></script>
-  <script src="/initializeFirebase.js"></script>
-
-  <!-- Import required Polymer components  -->
-  <link rel="import" href="/bower_components/paper-card/paper-card.html">
-  <link rel="import" href="/bower_components/paper-button/paper-button.html">
-  <link rel="import" href="/bower_components/paper-input/paper-input.html">  
-  <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">  
+  body, html {
+   font-family: 'Roboto', 'Noto', sans-serif;
+  }
+  
+</style>
 
 <body>
   <div id="demo"></div>
-
   <script type="module">
     import { html, render } from 'lit-html';
     import '/index.elements.js';
 
     render(
       html`
-        <preignition-blog-app base-url="/demo/">
+        <preignition-blog-app base-url="/demo/" log>
           some more light-dom
         </preignition-blog-app>
       `,
@@ -53,4 +76,5 @@
     );
   </script>
 </body>
+
 </html>
