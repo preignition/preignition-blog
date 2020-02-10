@@ -3,6 +3,8 @@ import { Router } from '@vaadin/router';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
 
+import '@material/mwc-fab';
+// import '@material/mwc-icon';
 
 /*
   Blog App container
@@ -89,6 +91,30 @@ class BlogApp extends Base {
         padding: 1em;
       }
       
+      #actions {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        --mdc-theme-secondary: var(--accent-color);
+        -webkit-box-align: end;
+        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        z-index: 100;
+      }
+
+      #actions > *  {
+        margin-top: 20px;
+      }
+
+      #subscribe {
+        --mdc-theme-secondary: var(--light-theme-background-color);
+        --mdc-theme-on-secondary: var(--accent-color);
+
+      }
+
+      
       @media screen and (max-width: 992px) {
         #main {
           display: block;
@@ -121,7 +147,11 @@ class BlogApp extends Base {
         </aside-->
       </div>
 
-      <div id="actions"></div>
+      <div id="actions">
+        ${this.canEdit ? html `<mwc-fab ?extended=${!this.smallScreen} icon="edit" label="edit" @click="${this.onEdit}"></mwc-fab>` :'' }
+        ${this.activeTab === 'article' ? html `<mwc-fab ?extended=${!this.smallScreen} icon="share" label="share" @click="${this.onShare}"></mwc-fab>` :'' }
+        <mwc-fab id="subscribe" ?extended=${!this.smallScreen} icon="mail_outline" label="subscribe" @click="${this.onSubscribe}"></mwc-fab>
+      </div>
       
       <!--footer>
           <h3>Footer</h3>
@@ -167,6 +197,15 @@ class BlogApp extends Base {
        */
       blogName: {
         type: String,
+        attribute: 'blog-name'
+      },
+
+      /*
+       * `canEdit` true for users who can edit
+       */
+      canEdit: {
+        type: Boolean,
+        attribute: 'can-edit'
       },
     };
   }
@@ -234,6 +273,18 @@ class BlogApp extends Base {
 
   switchRoute(route) {
     Router.go(`/${route}`); 
+  }
+
+  onShare(e) {
+    console.info('not yet implemented')
+  }
+
+  onEdit(e) {
+    console.info('not yet implemented')
+  }
+
+  onSubscribe(e) {
+    console.info('not yet implemented')
   }
 
 }

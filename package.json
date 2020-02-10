@@ -25,6 +25,10 @@
   },
   "dependencies": {
     "@lit-element-bootstrap/breadcrumb": "^1.0.1",
+    "@material/mwc-base": "^0.13.0",
+    "@material/mwc-fab": "^0.13.0",
+    "@material/mwc-icon": "^0.13.0",
+    "@material/mwc-ripple": "^0.13.0",
     "@morbidick/lit-element-notify": "^1.0.2",
     "@preignition/lit-firebase": "file:../lit-firebase",
     "@preignition/preignition-mixin": "^1.8.4",
@@ -54,6 +58,8 @@
   "snowpack": {
     "webDependencies": [
       "@lit-element-bootstrap/breadcrumb",
+      "@material/mwc-fab",
+      "@material/mwc-icon",
       "@morbidick/lit-element-notify",
       "@preignition/preignition-mixin",
       "@preignition/lit-firebase",
@@ -66,6 +72,9 @@
     "dedupe": [
       "lit-html",
       "lit-element",
+      "@material/mwc-base",
+      "@material/mwc-icon",
+      "@material/mwc-ripple",
       "@preignition/preignition-mixin"
     ]
   },

@@ -35,7 +35,7 @@ class PreignitionArticle extends Base {
       }
 
       article.main {
-        max-width: 992px;
+        max-width: 920px;
         margin: auto;
       }
 
@@ -52,7 +52,7 @@ class PreignitionArticle extends Base {
 
        @media screen and (max-width: 992px) {
         article.main {
-            margin: 0 20px;
+            margin: 0 5vw;
           }
        }
 
