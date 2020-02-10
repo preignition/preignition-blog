@@ -1,6 +1,6 @@
 {
   "name": "@preignition/preignition-blog",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Webcomponent preignition-blog following open-wc recommendations for building a blog app",
   "author": {
     "name": "christophe geiser",
@@ -75,6 +75,7 @@
       "@material/mwc-base",
       "@material/mwc-icon",
       "@material/mwc-ripple",
+      "@preignition/lit-firebase",
       "@preignition/preignition-mixin"
     ]
   },
