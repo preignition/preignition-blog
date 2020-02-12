@@ -1,6 +1,6 @@
 {
   "name": "@preignition/preignition-blog",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Webcomponent preignition-blog following open-wc recommendations for building a blog app",
   "author": {
     "name": "christophe geiser",
