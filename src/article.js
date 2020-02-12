@@ -66,8 +66,8 @@ class PreignitionArticle extends Base {
    */
   render() {
     return html`
-      <lit-firebase-document .log="${this.log}" path="/resources/published/article/${this.articleID}" @data-changed="${ e => {this.article = e.detail.value}}"></lit-firebase-document>
-      <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleID}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lit-firebase-document>
+      <lit-firebase-document .log="${this.log}" path="/resources/${this.state}/article/${this.articleId}" @data-changed="${ e => {this.article = e.detail.value}}"></lit-firebase-document>
+      <lit-firebase-document .log="${this.log}" path="/locale/${this.state}/article/${this.articleId}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lit-firebase-document>
       
       ${this.article && this.article.articleMainImage ? html `<img class="hero" src="${this.article && this.article.articleMainImage.url}" alt='${this.localeArticle && this.localeArticle.articleMainImageAlt}'>` : ''}  
       <article class="main">
@@ -83,7 +83,7 @@ class PreignitionArticle extends Base {
           ? html `
             <h1 class="title">${this.localeArticle.title}</h1>
             <h3 class="summary">${ html([marked(this.localeArticle.summary || '')])}</h3>
-            <preignition-article-author .articleID="${this.articleID}"></preignition-article-author>
+            <preignition-article-author .articleId="${this.articleId}"></preignition-article-author>
             <div class="content">${ html([marked(this.localeArticle.content || '')])}</div>
             `
           : html `<h3>Loading article ...</h3>`
@@ -98,9 +98,17 @@ class PreignitionArticle extends Base {
 
       ...super.properties, 
 
-      articleID: {
+      articleId: {
         type: String, 
         attribute: 'article-id'
+      },
+
+      /*
+       * `state` `published` or `draft`
+       */
+      state: {
+        type: String,
+        value: 'published'
       },
 
       article: {

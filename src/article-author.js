@@ -73,9 +73,9 @@ class ArticleAuthor extends Base {
       ...super.properties,
 
       /*
-       * `articleID` 
+       * `articleId` 
        */
-      articleID: {
+      articleId: {
         type: String,
         attribute: 'article-id'
       },
@@ -98,8 +98,8 @@ class ArticleAuthor extends Base {
 
   render() {
     return html `
-      <lit-firebase-document .log="${this.log}" path="/access/resource/user/${this.articleID}/byType/article" @data-changed="${this.onUser}"></lit-firebase-document>
-      <lit-firebase-document path="/resourceMeta/${this.articleID}/published/timestamp" @data-changed="${ e => {this.timestamp = e.detail.value}}"></lit-firebase-document>
+      <lit-firebase-document .log="${this.log}" path="/access/resource/user/${this.articleId}/byType/article" @data-changed="${this.onUser}"></lit-firebase-document>
+      <lit-firebase-document path="/resourceMeta/${this.articleId}/published/timestamp" @data-changed="${ e => {this.timestamp = e.detail.value}}"></lit-firebase-document>
       <div class="authors">
         <div class="photos">
           ${(this.editors || [] ).map(editor => html`<div class="photo"><img src="${editor.photoURL}" alt="${editor.displayName}"></div>`).reverse()}

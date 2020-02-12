@@ -117,7 +117,7 @@ class BlogApp extends Base {
     
     return html `
       <app-route .route="${this.route}" id="mainRoute" pattern="/:channel/:page" @data-changed="${this.onRouteData}"></app-route>
-      <app-route .route="${this.route}" pattern="/:channel/article/:articleID" @data-changed="${this.onRouteDataArticle}"></app-route>
+      <app-route .route="${this.route}" pattern="/:channel/article/:articleId" @data-changed="${this.onRouteDataArticle}"></app-route>
 
       ${this.page === 'articles' ? html `
       <header>
@@ -127,7 +127,7 @@ class BlogApp extends Base {
       
       <div id="main">
         <section>
-          ${this.page === 'article' ? html`<preignition-article .language="${this.language}" .articleID="${this.articleID}"></preigntion-article>` : ''}
+          ${this.page === 'article' ? html`<preignition-article .language="${this.language}" .articleId="${this.articleId}"></preigntion-article>` : ''}
           ${this.page === 'articles' ? html`<preignition-articles .path="${this.blogType === 'local' 
             ? `/organisationData/channel/${this.organisationId}/published/${this.channel}/byType/article` 
             : `/channel/published/${this.channel}/byType/article`}" .language="${this.language}" ></preigntion-articles>` : ''}
@@ -172,7 +172,7 @@ class BlogApp extends Base {
         attribute: 'app-sub-title'
       },
 
-      articleID: {
+      articleId: {
         type: String
       },
       /*
@@ -257,8 +257,8 @@ class BlogApp extends Base {
     this.updateComplete.then(() => { 
       this.log && console.info('routeDataArticle', e.detail.value);
       const routeData = e.detail.value;
-      if (routeData.articleID) {
-        this.articleID = routeData.articleID;
+      if (routeData.articleId) {
+        this.articleId = routeData.articleId;
       }
     })
   }

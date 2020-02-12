@@ -64,7 +64,7 @@ class PreignitionArticles extends Base {
              : (this.articles.length === 0 || !this.articles)
                ?  html `<h3>No articles yet!</h3>`
                : (this.articles).sort((a,b) => b.$val - a.$val) .map( article => html`
-                    <preignition-article-card .language="${this.language}" class='grid-item' .articleID="${article.$key}"></preignition-article-card>
+                    <preignition-article-card .language="${this.language}" class='grid-item' .articleId="${article.$key}"></preignition-article-card>
                  `)
           }
        </section>
