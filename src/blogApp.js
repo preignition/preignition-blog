@@ -116,8 +116,8 @@ class BlogApp extends Base {
   render() {
     
     return html `
-      <app-route .route="${this.route}" id="mainRoute" pattern="/:page" @data-changed="${this.onRouteData}"></app-route>
-      <app-route .route="${this.route}" pattern="/article/:articleID" @data-changed="${this.onRouteDataArticle}"></app-route>
+      <app-route .route="${this.route}" id="mainRoute" pattern="/:channel/:page" @data-changed="${this.onRouteData}"></app-route>
+      <app-route .route="${this.route}" pattern="/:channel/article/:articleID" @data-changed="${this.onRouteDataArticle}"></app-route>
 
       ${this.page === 'articles' ? html `
       <header>
@@ -128,7 +128,9 @@ class BlogApp extends Base {
       <div id="main">
         <section>
           ${this.page === 'article' ? html`<preignition-article .language="${this.language}" .articleID="${this.articleID}"></preigntion-article>` : ''}
-          ${this.page === 'articles' ? html`<preignition-articles .language="${this.language}" ></preigntion-articles>` : ''}
+          ${this.page === 'articles' ? html`<preignition-articles .path="${this.blogType === 'local' 
+            ? `/organisationData/channel/${this.organisationId}/published/${this.channel}/byType/article` 
+            : `/channel/published/${this.channel}/byType/article`}" .language="${this.language}" ></preigntion-articles>` : ''}
         </section>
         <!--aside>
            <h3>Aside</h3>
@@ -182,12 +184,26 @@ class BlogApp extends Base {
       },
 
       /*
-       * `blogName` give this blog a name
+       * `channel` give this blog a name
        * usefull for registering users
        */
-      blogName: {
+      channel: {
+        type: String
+      },
+
+      /*
+       * `organisationId` necessary for local blog 
+       */
+      organisationId: {
         type: String,
-        attribute: 'blog-name'
+      },
+
+      /*
+       * `blogType` `local` or `global`
+       */
+      blogType: {
+        type: String,
+        value: 'global'
       },
 
       /*
@@ -210,17 +226,29 @@ class BlogApp extends Base {
     });
   }
 
+  get mainRoute() {
+    const mainRoute = this.renderRoot.querySelector('#mainRoute')
+    return mainRoute && mainRoute.route || {};
+  }
+
   onRouteData(e) {
     this.updateComplete.then(() => { 
       this.log && console.info('routeData', e.detail.value);
       this.routeData = e.detail.value;
-      const page = this.routeData.page;
+      const {prefix} = this.mainRoute;
+      const {page, channel} = this.routeData;
+      if (!channel) {
+        this.channel = this.channel || 'default';
+        this.page = 'articles';
+        window.history.pushState(window.history.state || {}, '',  `${prefix || ''}/${this.channel}/articles`);
+        return 
+      }
+      this.channel = channel;
       if (this.pages.indexOf(page) > -1) {
         this.page = page;
       } else {
-        const route = this.renderRoot.querySelector('#mainRoute')
         this.page = 'articles';
-        window.history.pushState(window.history.state || {}, '', (route.prefix || '') + '/' + this.page);
+        window.history.pushState(window.history.state || {}, '',  `${prefix || ''}/${this.channel || 'default'}/articles`);
       }
     });
   }

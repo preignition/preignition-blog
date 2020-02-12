@@ -57,13 +57,13 @@ class PreignitionArticles extends Base {
    */
   render() {
     return html `
-      <lit-firebase-query path="/resources/published/article" @data-changed="${this.onDataChanged}"></lit-firebase-query>
+      <lit-firebase-query path="${this.path}" @data-changed="${this.onDataChanged}"></lit-firebase-query>
       <section class="grid">
           ${this.isLoading 
              ? html`<h3>Loading Blog articles...</h3>`
              : (this.articles.length === 0 || !this.articles)
-               ?  `<h3>No articles yet!</h3>`
-               : (this.articles).map( article => html`
+               ?  html `<h3>No articles yet!</h3>`
+               : (this.articles).sort((a,b) => b.$val - a.$val) .map( article => html`
                     <preignition-article-card .language="${this.language}" class='grid-item' .articleID="${article.$key}"></preignition-article-card>
                  `)
           }
@@ -83,6 +83,13 @@ class PreignitionArticles extends Base {
       isLoading: {
         type: Boolean, 
         value: true
+      },
+
+      /*
+       * `path` where article keys are stored
+       */
+      path: {
+        type: String,
       },
 
       language: {

@@ -1,7 +1,7 @@
 
 module.exports = {
   moduleDirs: ['node_modules'],
-  watch: true,
+  // watch: true,
   // nodeResolve: true,
   appIndex: 'index.html'
   // preserveSymlinks: true,
