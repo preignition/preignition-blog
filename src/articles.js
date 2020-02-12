@@ -59,9 +59,14 @@ class PreignitionArticles extends Base {
     return html `
       <lit-firebase-query path="/resources/published/article" @data-changed="${this.onDataChanged}"></lit-firebase-query>
       <section class="grid">
-          ${(this.articles || []).map( article => html`
-          <preignition-article-card .language="${this.language}" class='grid-item' .articleID="${article.$key}"></preignition-article-card>
-         `)}
+          ${this.isLoading 
+             ? html`<h3>Loading Blog articles...</h3>`
+             : (this.articles.length === 0 || !this.articles)
+               ?  `<h3>No articles yet!</h3>`
+               : (this.articles).map( article => html`
+                    <preignition-article-card .language="${this.language}" class='grid-item' .articleID="${article.$key}"></preignition-article-card>
+                 `)
+          }
        </section>
     `;
   }
@@ -75,6 +80,11 @@ class PreignitionArticles extends Base {
         type: Array
       },
 
+      isLoading: {
+        type: Boolean, 
+        value: true
+      },
+
       language: {
         type: String
       }
@@ -82,13 +92,9 @@ class PreignitionArticles extends Base {
     }
   }
 
-  constructor() {
-    super()
-    this.articles = [];
-  }
-
   onDataChanged(e) {
     this.log && console.info('onDataChanged', e.detail);
+    this.isLoading = false;
     this.articles = e.detail.value;
   }
 

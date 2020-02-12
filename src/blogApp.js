@@ -1,5 +1,4 @@
 import { html, css, LitElement } from 'lit-element';
-import { Router } from '@vaadin/router';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
 
@@ -16,10 +15,9 @@ import '@material/mwc-fab';
 class BlogApp extends Base {
   static get styles() {
     return [
-    super.styles, 
-    css`
+      super.styles,
+      css `
       :host {
-        --paper-tabs-selection-bar-color: var(--accent-color);
         display: flex;
         min-height: 100vh;
         flex-direction: column;
@@ -33,19 +31,6 @@ class BlogApp extends Base {
       }
 
      
-      paper-tabs {
-         background-color: var(--primary-color);
-         color: #fff;
-      }
-
-      paper-tab[link] a {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        text-decoration: none;
-      }
       
       /* we used <div id="main"> instead of <main> 
        * because we want to keep main at appliction level.
@@ -109,8 +94,8 @@ class BlogApp extends Base {
       }
 
       #subscribe {
-        --mdc-theme-secondary: var(--light-theme-background-color);
-        --mdc-theme-on-secondary: var(--accent-color);
+        --mdc-theme-secondary: var(--light-theme-background-color, #fff);
+        --mdc-theme-on-secondary: var(--accent-color, $000);
 
       }
 
@@ -124,22 +109,26 @@ class BlogApp extends Base {
           max-width: initial;  
         }
       }
-    `];
+    `
+    ];
   }
 
   render() {
-    return html`
-      ${this.activeTab === 'articles' ? html `
+    
+    return html `
+      <app-route .route="${this.route}" id="mainRoute" pattern="/:page" @data-changed="${this.onRouteData}"></app-route>
+      <app-route .route="${this.route}" pattern="/article/:articleID" @data-changed="${this.onRouteDataArticle}"></app-route>
+
+      ${this.page === 'articles' ? html `
       <header>
         <h1 class="title">${this.appTitle}</h1>
         <h3 class="sub-title">${this.appSubTitle}</h2>
       </header>` : ''}
       
-      
       <div id="main">
         <section>
-          ${this.activeTab === 'article' ? html`<preignition-article .language="${this.language}" .articleID="${this.articleID}"></preigntion-article>` : ''}
-          ${this.activeTab === 'articles' ? html`<preignition-articles .language="${this.language}" ></preigntion-articles>` : ''}
+          ${this.page === 'article' ? html`<preignition-article .language="${this.language}" .articleID="${this.articleID}"></preigntion-article>` : ''}
+          ${this.page === 'articles' ? html`<preignition-articles .language="${this.language}" ></preigntion-articles>` : ''}
         </section>
         <!--aside>
            <h3>Aside</h3>
@@ -149,7 +138,7 @@ class BlogApp extends Base {
 
       <div id="actions">
         ${this.canEdit ? html `<mwc-fab ?extended=${!this.smallScreen} icon="edit" label="edit" @click="${this.onEdit}"></mwc-fab>` :'' }
-        ${this.activeTab === 'article' ? html `<mwc-fab ?extended=${!this.smallScreen} icon="share" label="share" @click="${this.onShare}"></mwc-fab>` :'' }
+        ${this.page === 'article' ? html `<mwc-fab ?extended=${!this.smallScreen} icon="share" label="share" @click="${this.onShare}"></mwc-fab>` :'' }
         <mwc-fab id="subscribe" ?extended=${!this.smallScreen} icon="mail_outline" label="subscribe" @click="${this.onSubscribe}"></mwc-fab>
       </div>
       
@@ -157,16 +146,17 @@ class BlogApp extends Base {
           <h3>Footer</h3>
       </footer-->    
   
-      <div id="outlet">
-      </div>
     `;
   }
 
   static get properties() {
     return {
-      activeTab: { type: String },
-      tabs: { type: Array },
+      ...super.properties,
+      page: { type: String },
+      pages: { type: Array },
       smallScreen: { type: Boolean },
+      route: { type: Object },
+      // routeData: {type: Object},
 
       appTitle: {
         type: String,
@@ -212,67 +202,37 @@ class BlogApp extends Base {
 
   constructor() {
     super();
-    // this.activeTab = location.pathname === '/' ? 'articles' : location.pathname.replace('/', '');
-    this.tabs = ['articles', 'article', 'article-edit'];
-    // this.activeTab = 'articles';
+    // this.page = location.pathname === '/' ? 'articles' : location.pathname.replace('/', '');
+    this.pages = ['articles', 'article', 'article-edit'];
     this.language = 'en';
-
     installMediaQueryWatcher(`(min-width: 600px)`, (matches) => {
       this.smallScreen = !matches;
     });
   }
 
-  setRouter() {
-    const router = new Router(this.shadowRoot.getElementById('outlet'), {baseUrl: this.baseURL || '/'});
-    router.setRoutes([
-      {path: '/',  action: () => {
-        this.articleID = '';
-        this.activeTab = 'articles';
-      },   _component: 'preignition-articles'},
-      {path: '/articles', action: (context,commands) => {
-        this.articleID = '';
-        this.activeTab = 'articles';
-        return commands.component('div') 
-      }, _component: 'preignition-articles'},
-      // Note(cg): below route (with action) does not worlk. See 
-      {path: '/article/:articleID', action: (context, commands) =>  {
-        console.info(context, commands);  
-        this.articleID = context.params.articleID;
-        this.activeTab = 'article';
-        return commands.component('div') 
-        // return context.next();
-        // return html`<div>You've tried to access ${context.pathname}, but alas there is nothing there.</div>`
-        }
-      },
-      {path: '/article-edit/:articleID',  component: 'preignition-article-edit'},
-      {path: '(.*)', redirect: '/', action: () => {
-        this.activeTab = 'articles';
-        }
+  onRouteData(e) {
+    this.updateComplete.then(() => { 
+      this.log && console.info('routeData', e.detail.value);
+      this.routeData = e.detail.value;
+      const page = this.routeData.page;
+      if (this.pages.indexOf(page) > -1) {
+        this.page = page;
+      } else {
+        const route = this.renderRoot.querySelector('#mainRoute')
+        this.page = 'articles';
+        window.history.pushState(window.history.state || {}, '', (route.prefix || '') + '/' + this.page);
       }
-    ], true);
+    });
   }
 
-  firstUpdated() {
-    this.setRouter();
-    if (location.pathname.startsWith(this.baseURL)) {
-      Router.go(location.pathname);   
-    } else {
-      this.activeTab = "articles";
-    }
-    
-  }
-
-  onTabChanged(e) {
-    this.log && console.info(e);
-    const {selectedItem} = e.target;
-    if (selectedItem && selectedItem.querySelector('[href]')) {
-      const href = selectedItem.querySelector('[href]').getAttribute('href')
-      Router.go(`${this.baseURL || ''}${href}`)
-    }
-  }
-
-  switchRoute(route) {
-    Router.go(`/${route}`); 
+  onRouteDataArticle(e) {
+    this.updateComplete.then(() => { 
+      this.log && console.info('routeDataArticle', e.detail.value);
+      const routeData = e.detail.value;
+      if (routeData.articleID) {
+        this.articleID = routeData.articleID;
+      }
+    })
   }
 
   onShare(e) {
@@ -290,4 +250,3 @@ class BlogApp extends Base {
 }
 
 export default BlogApp;
-

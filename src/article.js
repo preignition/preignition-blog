@@ -47,7 +47,7 @@ class PreignitionArticle extends Base {
         background-color: inherit;
         --breadcrumb-padding-left: 0;
         --breadcrumb-item-link-color: var(--secondary-text-color);
-        --breadcrumb-divider: ">";
+        --breadcrumb-item-divider-content: "›";
       }
 
        @media screen and (max-width: 992px) {
@@ -66,16 +66,16 @@ class PreignitionArticle extends Base {
    */
   render() {
     return html`
-      <lit-firebase-document log path="/resources/published/article/${this.articleID}" @data-changed="${ e => {this.article = e.detail.value}}"></lit-firebase-document>
-      <lit-firebase-document log path="/locale/published/article/${this.articleID}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lit-firebase-document>
+      <lit-firebase-document .log="${this.log}" path="/resources/published/article/${this.articleID}" @data-changed="${ e => {this.article = e.detail.value}}"></lit-firebase-document>
+      <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleID}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lit-firebase-document>
       
       ${this.article && this.article.articleMainImage ? html `<img class="hero" src="${this.article && this.article.articleMainImage.url}" alt='${this.localeArticle && this.localeArticle.articleMainImageAlt}'>` : ''}  
       <article class="main">
         
          <nav>
           <bs-breadcrumb>
-            <bs-breadcrumb-item title="Home" href="./"></bs-breadcrumb-item>
-            <bs-breadcrumb-item title="All Articles" href="./articles" ></bs-breadcrumb-item>
+            <bs-breadcrumb-item title="Home" href="/"></bs-breadcrumb-item>
+            <bs-breadcrumb-item title="All Articles" href="../articles" ></bs-breadcrumb-item>
           </bs-breadcrumb>
         </nav>
 

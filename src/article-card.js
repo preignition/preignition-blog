@@ -181,10 +181,10 @@ class  ArticleCard extends Base {
 
   render() {
     return html`
-    <lit-firebase-document log path="/resources/published/article/${this.articleID}" @data-changed="${this.onPostChanged}"></lit-firebase-document>
-    <lit-firebase-document log path="/locale/published/article/${this.articleID}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value}}"></lit-firebase-document>
-    <lit-firebase-document log path="/locale/published/article/${this.articleID}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value}}"></lit-firebase-document>
-    <lit-firebase-document log path="/locale/published/article/${this.articleID}/${this.language}/articleMainImageAlt" @data-changed="${e => {this.alt = e.detail.value}}"></lit-firebase-document>
+    <lit-firebase-document .log="${this.log}" path="/resources/published/article/${this.articleID}" @data-changed="${this.onPostChanged}"></lit-firebase-document>
+    <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleID}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value}}"></lit-firebase-document>
+    <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleID}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value}}"></lit-firebase-document>
+    <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleID}/${this.language}/articleMainImageAlt" @data-changed="${e => {this.alt = e.detail.value}}"></lit-firebase-document>
     <a href="./article/${this.articleID}" class="card" title="">
        <article class="post-card">
         <div class="cover ${this.thumbnail ? ' with-image' : 'no-image'}">
@@ -216,11 +216,8 @@ class  ArticleCard extends Base {
   }
 
   onPostChanged(e) {
-    console.info('DATA', e.detail.value);
     const article = e.detail.value;
-    // this.title = post.title;
-    // this.summary = post.title;
-    this.thumbnail = article.articleMainImage && article.articleMainImage.url;
+    this.thumbnail = article && article.articleMainImage && article.articleMainImage.url;
   }
 }
 

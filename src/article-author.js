@@ -98,7 +98,7 @@ class ArticleAuthor extends Base {
 
   render() {
     return html `
-      <lit-firebase-document log path="/access/resource/user/${this.articleID}/byType/article" @data-changed="${this.onUser}"></lit-firebase-document>
+      <lit-firebase-document .log="${this.log}" path="/access/resource/user/${this.articleID}/byType/article" @data-changed="${this.onUser}"></lit-firebase-document>
       <lit-firebase-document path="/resourceMeta/${this.articleID}/published/timestamp" @data-changed="${ e => {this.timestamp = e.detail.value}}"></lit-firebase-document>
       <div class="authors">
         <div class="photos">

@@ -3,7 +3,7 @@
 
 <head>
   <title>Blog App Demo and dev page</title>
-  <base href="/demo/">
+  <!-- <base href="/demo/"> -->
   <meta charset="utf-8">
   <style>
     body {
@@ -37,22 +37,22 @@
 <script src="/initializeFirebase.js"></script>
 <!-- Import required Polymer components  -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/paper-card/paper-card.html">
-<link rel="import" href="/bower_components/paper-button/paper-button.html">
-<link rel="import" href="/bower_components/paper-input/paper-input.html">
-<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="/bower_components/polymerfire/firebase-document.html">
-<link rel="import" href="/bower_components/polymerfire/firebase-query.html">
-
+<link rel="import" href="/bower_components/app-route/app-route.html">
+<link rel="import" href="/bower_components/app-route/app-location.html">
+<!-- <link rel="import" href="/bower_components/paper-card/paper-card.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-button/paper-button.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-input/paper-input.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html"> -->
+<!-- <link rel="import" href="/bower_components/polymerfire/firebase-document.html"> -->
+<!-- <link rel="import" href="/bower_components/polymerfire/firebase-query.html"> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block">
 <!-- Styles -->
 <!-- <link rel="import" href="/bower_components/paper-styles/classes/global.html"> -->
- <!-- <link rel="import" href="/bower_components/paper-styles/shadow.html"> -->
+<!-- <link rel="import" href="/bower_components/paper-styles/shadow.html"> -->
 <!-- <link rel="import" href="/bower_components/paper-styles/typography.html"> -->
 <!-- <link rel="import" href="/bower_components/paper-styles/default-theme.html"> -->
 <!-- <link rel="import" href="/bower_components/paper-styles/element-styles/paper-item-styles.html"> -->
 <!-- <link rel="import" href="/bower_components/paper-styles/element-styles/paper-material-styles.html"> -->
-
 <style>
   body {
       margin: 0;
@@ -65,19 +65,39 @@
 </style>
 
 <body>
-  <div id="demo"></div>
+  <div id="demo">
+  </div>
   <script type="module">
-    import { html, render } from 'lit-html';
+    import { html, LitElement } from 'lit-element';
     import '/index.elements.js';
 
-    render(
-      html`
-        <preignition-blog-app base-url="/demo/" log>
-          some more light-dom
-        </preignition-blog-app>
-      `,
-      document.querySelector('#demo')
-    );
+    class Demo extends LitElement {
+
+
+
+    static get properties () {
+      return {
+        route: {
+          type: Object
+        }
+      }
+    }
+    
+    render() { 
+      return html `
+        <app-location @route-changed="${this.onRoute}"></app-location>
+        <preignition-blog-app id="app" .route="${this.route}" base-url="/demo/"></preignition-blog-app>
+      `;
+    }
+
+    onRoute(e) {
+       this.updateComplete.then(() => { this.route = e.detail.value});
+    }
+  }
+
+  window.customElements.define('app-demo', Demo);
+  document.querySelector('#demo').appendChild(document.createElement('app-demo'));
+
   </script>
 </body>
 
