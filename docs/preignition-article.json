@@ -1,0 +1,75 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "preignition-article",
+      "path": "./../src/article.js",
+      "attributes": [
+        {
+          "name": "article-id",
+          "description": "the id of article",
+          "type": "String"
+        },
+        {
+          "name": "state",
+          "description": "article state to fetch",
+          "type": "'published'|'draft'",
+          "default": "\"published\""
+        },
+        {
+          "name": "article",
+          "type": "object"
+        },
+        {
+          "name": "localeArticle",
+          "type": "object"
+        },
+        {
+          "name": "language",
+          "type": "string"
+        },
+        {
+          "name": "log",
+          "description": "`log`  true to show log",
+          "type": "boolean"
+        }
+      ],
+      "properties": [
+        {
+          "name": "articleId",
+          "attribute": "article-id",
+          "description": "the id of article",
+          "type": "String"
+        },
+        {
+          "name": "state",
+          "attribute": "state",
+          "description": "article state to fetch",
+          "type": "'published'|'draft'",
+          "default": "\"published\""
+        },
+        {
+          "name": "article",
+          "attribute": "article",
+          "type": "object"
+        },
+        {
+          "name": "localeArticle",
+          "attribute": "localeArticle",
+          "type": "object"
+        },
+        {
+          "name": "language",
+          "attribute": "language",
+          "type": "string"
+        },
+        {
+          "name": "log",
+          "attribute": "log",
+          "description": "`log`  true to show log",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

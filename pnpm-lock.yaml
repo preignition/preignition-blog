@@ -7,7 +7,7 @@ dependencies:
   '@morbidick/lit-element-notify': 1.0.2_lit-element@2.2.1+lit-html@1.1.2
   '@preignition/lit-firebase': 'link:../lit-firebase'
   '@preignition/preignition-mixin': 1.8.4
-  '@vaadin/router': 1.6.0
+  dompurify: 2.0.8
   lit-element: 2.2.1
   lit-html: 1.1.2
   local-time: 2.1.0
@@ -1620,24 +1620,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-EZQUP3hSZQyTQRfiLqelC9NMWd1kqLcmQE0dMiklxBkgi84T+cHOhnKpgk4NnOWpGX863yE6+IaGnOXUNFqDnQ==
-  /@vaadin/router/1.6.0:
-    dependencies:
-      '@vaadin/vaadin-usage-statistics': 2.1.0
-      path-to-regexp: 2.4.0
-    dev: false
-    resolution:
-      integrity: sha512-uBmk84cSQt4BwFJE/n3SutAd3TSzUceQsbMIN3ss9bjuhAcSXPJoX39uaUiQrAtdz44TlveEzYuzNgPStQqWmA==
-  /@vaadin/vaadin-development-mode-detector/2.0.4:
-    dev: false
-    resolution:
-      integrity: sha512-S+PaFrZpK8uBIOnIHxjntTrgumd5ztuCnZww96ydGKXgo9whXfZsbMwDuD/102a/IuPUMyF+dh/n3PbWzJ6igA==
-  /@vaadin/vaadin-usage-statistics/2.1.0:
-    dependencies:
-      '@vaadin/vaadin-development-mode-detector': 2.0.4
-    dev: false
-    requiresBuild: true
-    resolution:
-      integrity: sha512-e81nbqY5zsaYhLJuOVkJkB/Um1pGK5POIqIlTNhUfjeoyGaJ63tiX8+D5n6F+GgVxUTLUarsKa6SKRcQel0AzA==
   /@webcomponents/webcomponentsjs/2.4.1:
     dev: true
     resolution:
@@ -3008,6 +2990,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-JiK04h0Ht5u/80fdLMCEmV4zkNh2BcoMFBmZ/91WtYZ8qVXSKjiw7fXMgFPnHcSZgOo3XdinHvmnDUeMf5R4wA==
+  /dompurify/2.0.8:
+    dev: false
+    resolution:
+      integrity: sha512-vIOSyOXkMx81ghEalh4MLBtDHMx1bhKlaqHDMqM2yeitJ996SLOk5mGdDpI9ifJAgokred8Rmu219fX4OltqXw==
   /domutils/1.7.0:
     dependencies:
       dom-serializer: 0.2.2
@@ -6073,10 +6059,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
-  /path-to-regexp/2.4.0:
-    dev: false
-    resolution:
-      integrity: sha512-G6zHoVqC6GGTQkZwF4lkuEyMbVOjoBKAEybQUypI1WTkqinCOrq2x6U2+phkJ1XsEMTy4LjtwPI7HW+NVrRR2w==
   /path-type/1.1.0:
     dependencies:
       graceful-fs: 4.2.3
@@ -8031,8 +8013,8 @@ specifiers:
   '@open-wc/testing-karma-bs': ^1.0.0
   '@preignition/lit-firebase': 'file:../lit-firebase'
   '@preignition/preignition-mixin': ^1.8.4
-  '@vaadin/router': ^1.6.0
   deepmerge: ^3.2.0
+  dompurify: ^2.0.8
   es-dev-server: ^1.23.0
   eslint: ^6.1.0
   firebase: ^7.8.0

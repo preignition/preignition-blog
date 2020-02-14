@@ -1,9 +1,14 @@
 import { html, css } from 'lit-element';
-import  { default as marked}  from 'marked';
+import { parse } from './util/markdown.js';
 import { Base } from './base.js';
 
 import "@lit-element-bootstrap/breadcrumb";
 
+/**
+ *  Display in individual blog article
+ * 
+ * @element preignition-article
+ */
 class PreignitionArticle extends Base {
 
    static get styles() {
@@ -82,9 +87,9 @@ class PreignitionArticle extends Base {
         ${this.localeArticle 
           ? html `
             <h1 class="title">${this.localeArticle.title}</h1>
-            <h3 class="summary">${ html([marked(this.localeArticle.summary || '')])}</h3>
+            <h3 class="summary">${ parse(this.localeArticle.summary)}</h3>
             <preignition-article-author .articleId="${this.articleId}"></preignition-article-author>
-            <div class="content">${ html([marked(this.localeArticle.content || '')])}</div>
+            <div class="content">${ parse(this.localeArticle.content)}</div>
             `
           : html `<h3>Loading article ...</h3>`
         }
@@ -98,13 +103,18 @@ class PreignitionArticle extends Base {
 
       ...super.properties, 
 
+      /**
+       * the id of article
+       * @type {String}
+       */
       articleId: {
         type: String, 
         attribute: 'article-id'
       },
 
-      /*
-       * `state` `published` or `draft`
+      /**
+       * article state to fetch
+       * @type {'published'|'draft'}
        */
       state: {
         type: String,

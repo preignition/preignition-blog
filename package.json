@@ -7,6 +7,7 @@
     "email": "christophe@preignition.org"
   },
   "license": "MIT",
+  "type": "module",
   "main": "index.js",
   "module": "index.js",
   "scripts": {
@@ -21,7 +22,11 @@
     "test:watch": "karma start --auto-watch=true --single-run=false",
     "test:update-snapshots": "karma start --update-snapshots",
     "test:prune-snapshots": "karma start --prune-snapshots",
-    "test:bs": "karma start karma.bs.config.js --coverage"
+    "test:bs": "karma start karma.bs.config.js --coverage",
+    "generate-docs-md": "wca analyze src/**.js --outFiles docs/{tagname}.md ",
+    "generate-docs-json": "wca analyze src/**.js --outFiles docs/{tagname}.json ",
+    "generate-docs": "npm run generate-docs-md && npm run generate-docs-json",
+    "prepublishOnly": "npm generate-docs"
   },
   "dependencies": {
     "@lit-element-bootstrap/breadcrumb": "^1.0.1",
@@ -32,6 +37,7 @@
     "@morbidick/lit-element-notify": "^1.0.2",
     "@preignition/lit-firebase": "file:../lit-firebase",
     "@preignition/preignition-mixin": "^1.8.4",
+    "dompurify": "^2.0.8",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
     "local-time": "^2.1.0",
@@ -64,12 +70,17 @@
       "@preignition/lit-firebase",
       "pwa-helpers/media-query.js",
       "marked",
+      "marked/lib/marked.esm.js",
+      "dompurify",
       "lit-element",
-      "lit-html"
+      "lit-html",
+      "lit-html/directives/cache.js",
+      "lit-html/directives/unsafe-html.js"
     ],
     "dedupe": [
       "lit-html",
       "lit-element",
+      "dompurify",
       "@material/mwc-base",
       "@material/mwc-icon",
       "@material/mwc-ripple",

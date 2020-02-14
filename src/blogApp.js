@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
+import { cache } from 'lit-html/directives/cache.js';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
 
@@ -127,10 +128,14 @@ class BlogApp extends Base {
       
       <div id="main">
         <section>
-          ${this.page === 'article' ? html`<preignition-article .language="${this.language}" .articleId="${this.articleId}"></preigntion-article>` : ''}
-          ${this.page === 'articles' ? html`<preignition-articles .path="${this.blogType === 'local' 
-            ? `/organisationData/channel/${this.organisationId}/published/${this.channel}/byType/article` 
-            : `/channel/published/${this.channel}/byType/article`}" .language="${this.language}" ></preigntion-articles>` : ''}
+        ${cache(
+          this.page === 'article'
+            ? html`<preignition-article .language="${this.language}" .articleId="${this.articleId}"></preigntion-article>`
+            : this.page === 'articles'
+              ? html`<preignition-articles .path="${this.blogType === 'local'
+                ? `/organisationData/channel/${this.organisationId}/published/${this.channel}/byType/article`
+                : `/channel/published/${this.channel}/byType/article`}" .language="${this.language}" ></preigntion-articles>` : ''
+         )}
         </section>
         <!--aside>
            <h3>Aside</h3>

@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import  { default as marked}  from 'marked';
+import { parse } from './util/markdown.js';
 import { Base } from './base.js';
 
 import { default as cardCss} from './styles/card.js';
@@ -193,7 +193,7 @@ class  ArticleCard extends Base {
         </div>
           <preignition-article-author .articleId="${this.articleId}"></preignition-article-author>
           <div class="desc">
-             ${html([marked(this.summary || '')])}
+             ${parse(this.summary)}
          </div>
       </article>
      </a>
