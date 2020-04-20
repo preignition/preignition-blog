@@ -1,11 +1,11 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
-import '../preignition-blog-app.js';
+import '../pblog-app.js';
 
 describe('PreignitionBlogApp', () => {
   it('has a default title "Hey there" and counter 5', async () => {
     const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
+      <pblog-app></pblog-app>
     `);
 
     expect(el.title).to.equal('Hey there');
@@ -14,7 +14,7 @@ describe('PreignitionBlogApp', () => {
 
   it('increases the counter on button click', async () => {
     const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
+      <pblog-app></pblog-app>
     `);
     el.shadowRoot.querySelector('button').click();
 
@@ -23,7 +23,7 @@ describe('PreignitionBlogApp', () => {
 
   it('can override the title via attribute', async () => {
     const el = await fixture(html`
-      <preignition-blog-app title="attribute title"></preignition-blog-app>
+      <pblog-app title="attribute title"></pblog-app>
     `);
 
     expect(el.title).to.equal('attribute title');
@@ -31,7 +31,7 @@ describe('PreignitionBlogApp', () => {
 
   it('shows initially the text "hey there Nr. 5!" and an "increment" button', async () => {
     const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
+      <pblog-app></pblog-app>
     `);
 
     expect(el).shadowDom.to.equalSnapshot();
@@ -39,7 +39,7 @@ describe('PreignitionBlogApp', () => {
 
   it('passes the a11y audit', async () => {
     const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
+      <pblog-app></pblog-app>
     `);
 
     await expect(el).shadowDom.to.be.accessible();

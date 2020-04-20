@@ -1,7 +1,7 @@
 
-import './elements/preignition-blog-app.js';
-import './elements/preignition-articles.js';
-import './elements/preignition-article.js';
-import './elements/preignition-article-card.js';
-import './elements/preignition-article-author.js';
+import './elements/pblog-app.js';
+import './elements/pblog-articles.js';
+import './elements/pblog-article.js';
+import './elements/pblog-article-card.js';
+import './elements/pblog-article-author.js';
 

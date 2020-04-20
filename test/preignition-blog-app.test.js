@@ -1,11 +1,11 @@
 import { html, fixture, expect, elementUpdated, aTimeout } from '@open-wc/testing';
 
-import '../elements/preignition-blog-app.js';
+import '../elements/pblog-app.js';
 
 describe('PreignitionBlogApp', () => {
   it('displays article when article tab is selected', async () => {
     const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
+      <pblog-app></pblog-app>
     `);
 
     // Note(cg): seems unable to select by role.
@@ -21,7 +21,7 @@ describe('PreignitionBlogApp', () => {
     await elementUpdated(el);
     // await aTimeout(500);
     
-    const article = el.shadowRoot.querySelector('preignition-articles');
+    const article = el.shadowRoot.querySelector('pblog-articles');
     expect(article).to.exist;
 
     // Note(cg): routing does not seem to work the same way.
@@ -31,7 +31,7 @@ describe('PreignitionBlogApp', () => {
 
   it('passes the a11y audit', async () => {
     const el = await fixture(html`
-      <preignition-blog-app></preignition-blog-app>
+      <pblog-app></pblog-app>
     `);
 
     await expect(el).shadowDom.to.be.accessible();

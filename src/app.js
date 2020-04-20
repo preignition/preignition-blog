@@ -13,7 +13,7 @@ import '@material/mwc-fab';
  */
 
 
-class BlogApp extends Base {
+class App extends Base {
   static get styles() {
     return [
       super.styles,
@@ -130,9 +130,9 @@ class BlogApp extends Base {
         <section>
         ${cache(
           this.page === 'article'
-            ? html`<preignition-article .language="${this.language}" .articleId="${this.articleId}"></preigntion-article>`
+            ? html`<pblog-article .language="${this.language}" .articleId="${this.articleId}"></preigntion-article>`
             : this.page === 'articles'
-              ? html`<preignition-articles .path="${this.blogType === 'local'
+              ? html`<pblog-articles .path="${this.blogType === 'local'
                 ? `/organisationData/channel/${this.organisationId}/published/${this.channel}/byType/article`
                 : `/channel/published/${this.channel}/byType/article`}" .language="${this.language}" ></preigntion-articles>` : ''
          )}
@@ -282,4 +282,4 @@ class BlogApp extends Base {
 
 }
 
-export default BlogApp;
+export default App;

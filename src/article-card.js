@@ -181,17 +181,17 @@ class  ArticleCard extends Base {
 
   render() {
     return html`
-    <lit-firebase-document .log="${this.log}" path="/resources/published/article/${this.articleId}" @data-changed="${this.onPostChanged}"></lit-firebase-document>
-    <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value}}"></lit-firebase-document>
-    <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value}}"></lit-firebase-document>
-    <lit-firebase-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/articleMainImageAlt" @data-changed="${e => {this.alt = e.detail.value}}"></lit-firebase-document>
+    <lif-document .log="${this.log}" path="/resources/published/article/${this.articleId}" @data-changed="${this.onPostChanged}"></lif-document>
+    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value}}"></lif-document>
+    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value}}"></lif-document>
+    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/articleMainImageAlt" @data-changed="${e => {this.alt = e.detail.value}}"></lif-document>
     <a href="./article/${this.articleId}" class="card" title="">
        <article class="post-card">
         <div class="cover ${this.thumbnail ? ' with-image' : 'no-image'}">
           ${this.thumbnail && this.renderThumbnail(this.thumbnail, this.alt)}
           <h2 class="headline ${this.thumbnail ? ' with-image' : 'no-image'}">${this.title}</h2>
         </div>
-          <preignition-article-author .articleId="${this.articleId}"></preignition-article-author>
+          <pblog-article-author .articleId="${this.articleId}"></pblog-article-author>
           <div class="desc">
              ${parse(this.summary)}
          </div>

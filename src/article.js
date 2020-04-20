@@ -7,7 +7,7 @@ import "@lit-element-bootstrap/breadcrumb";
 /**
  *  Display in individual blog article
  * 
- * @element preignition-article
+ * @element pblog-article
  */
 class PreignitionArticle extends Base {
 
@@ -33,7 +33,7 @@ class PreignitionArticle extends Base {
         margin-bottom: 50px;
       }
 
-      preignition-article-author {
+      pblog-article-author {
         --author-image-size: 60px;
         margin-top: 50px;
         margin-bottom: 50px;
@@ -71,8 +71,8 @@ class PreignitionArticle extends Base {
    */
   render() {
     return html`
-      <lit-firebase-document .log="${this.log}" path="/resources/${this.state}/article/${this.articleId}" @data-changed="${ e => {this.article = e.detail.value}}"></lit-firebase-document>
-      <lit-firebase-document .log="${this.log}" path="/locale/${this.state}/article/${this.articleId}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lit-firebase-document>
+      <lif-document .log="${this.log}" path="/resources/${this.state}/article/${this.articleId}" @data-changed="${ e => {this.article = e.detail.value}}"></lif-document>
+      <lif-document .log="${this.log}" path="/locale/${this.state}/article/${this.articleId}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lif-document>
       
       ${this.article && this.article.articleMainImage ? html `<img class="hero" src="${this.article && this.article.articleMainImage.url}" alt='${this.localeArticle && this.localeArticle.articleMainImageAlt}'>` : ''}  
       <article class="main">
@@ -88,7 +88,7 @@ class PreignitionArticle extends Base {
           ? html `
             <h1 class="title">${this.localeArticle.title}</h1>
             <h3 class="summary">${ parse(this.localeArticle.summary)}</h3>
-            <preignition-article-author .articleId="${this.articleId}"></preignition-article-author>
+            <pblog-article-author .articleId="${this.articleId}"></pblog-article-author>
             <div class="content">${ parse(this.localeArticle.content)}</div>
             `
           : html `<h3>Loading article ...</h3>`

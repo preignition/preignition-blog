@@ -57,14 +57,14 @@ class PreignitionArticles extends Base {
    */
   render() {
     return html `
-      <lit-firebase-query path="${this.path}" @data-changed="${this.onDataChanged}"></lit-firebase-query>
+      <lif-query path="${this.path}" @data-changed="${this.onDataChanged}"></lif-query>
       <section class="grid">
           ${this.isLoading 
              ? html`<h3>Loading Blog articles...</h3>`
              : (this.articles.length === 0 || !this.articles)
                ?  html `<h3>No articles yet!</h3>`
                : (this.articles).sort((a,b) => b.$val - a.$val) .map( article => html`
-                    <preignition-article-card .language="${this.language}" class='grid-item' .articleId="${article.$key}"></preignition-article-card>
+                    <pblog-article-card .language="${this.language}" class='grid-item' .articleId="${article.$key}"></pblog-article-card>
                  `)
           }
        </section>
