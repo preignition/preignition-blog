@@ -132,9 +132,9 @@ class App extends Base {
           this.page === 'article'
             ? html`<pblog-article .language="${this.language}" .articleId="${this.articleId}"></preigntion-article>`
             : this.page === 'articles'
-              ? html`<pblog-articles .path="${this.blogType === 'local'
-                ? `/organisationData/channel/${this.organisationId}/published/${this.channel}/byType/article`
-                : `/channel/published/${this.channel}/byType/article`}" .language="${this.language}" ></preigntion-articles>` : ''
+              ? html`<pblog-articles 
+                .path="${this.blogType === 'local' ? this.getLocalPath(this.channel, this.entityId) : this.getGlobalPath(this.channel)}" 
+                .language="${this.language}" ></preigntion-articles>` : ''
          )}
         </section>
         <!--aside>
@@ -159,11 +159,14 @@ class App extends Base {
   static get properties() {
     return {
       ...super.properties,
+      channel: { type: String },
       page: { type: String },
       pages: { type: Array },
       smallScreen: { type: Boolean },
       route: { type: Object },
-      // routeData: {type: Object},
+
+      entityType: { type: String },
+      entityId: { type: String, attribute: 'entity-id' },
 
       appTitle: {
         type: String,
@@ -188,28 +191,7 @@ class App extends Base {
         attribute: 'base-url'
       },
 
-      /*
-       * `channel` give this blog a name
-       * usefull for registering users
-       */
-      channel: {
-        type: String
-      },
 
-      /*
-       * `organisationId` necessary for local blog 
-       */
-      organisationId: {
-        type: String,
-      },
-
-      /*
-       * `blogType` `local` or `global`
-       */
-      blogType: {
-        type: String,
-        value: 'global'
-      },
 
       /*
        * `canEdit` true for users who can edit
@@ -226,9 +208,18 @@ class App extends Base {
     // this.page = location.pathname === '/' ? 'articles' : location.pathname.replace('/', '');
     this.pages = ['articles', 'article', 'article-edit'];
     this.language = 'en';
+    this.entityType = 'program';
     installMediaQueryWatcher(`(min-width: 600px)`, (matches) => {
       this.smallScreen = !matches;
     });
+  }
+
+  getLocalPath(channel, id) {
+     return `/${this.entityType}Data/channel/${id}/published/${channel}/byType/article`;
+  }
+
+  getGlobalPath(channel) {
+    return `/channel/published/${channel}/byType/article`;
   }
 
   get mainRoute() {

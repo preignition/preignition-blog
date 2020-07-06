@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import { parse } from './util/markdown.js';
+import { parse } from '@preignition/preignition-util';
 import { Base } from './base.js';
 
 import { default as cardCss} from './styles/card.js';
@@ -184,7 +184,7 @@ class  ArticleCard extends Base {
     <lif-document .log="${this.log}" path="/resources/published/article/${this.articleId}" @data-changed="${this.onPostChanged}"></lif-document>
     <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value}}"></lif-document>
     <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value}}"></lif-document>
-    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/articleMainImageAlt" @data-changed="${e => {this.alt = e.detail.value}}"></lif-document>
+    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/heroAlt" @data-changed="${e => {this.alt = e.detail.value}}"></lif-document>
     <a href="./article/${this.articleId}" class="card" title="">
        <article class="post-card">
         <div class="cover ${this.thumbnail ? ' with-image' : 'no-image'}">
@@ -217,7 +217,7 @@ class  ArticleCard extends Base {
 
   onPostChanged(e) {
     const article = e.detail.value;
-    this.thumbnail = article && article.articleMainImage && article.articleMainImage.url;
+    this.thumbnail = article && article.hero && article.hero.url;
   }
 }
 

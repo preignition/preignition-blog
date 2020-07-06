@@ -1,5 +1,5 @@
 import { html, css } from 'lit-element';
-import { parse } from './util/markdown.js';
+import { parse } from '@preignition/preignition-util';
 import { Base } from './base.js';
 
 import "@lit-element-bootstrap/breadcrumb";
@@ -31,6 +31,13 @@ class PreignitionArticle extends Base {
         max-width: 100%;
         vertical-align: middle;
         margin-bottom: 50px;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        margin: auto;
       }
 
       pblog-article-author {
@@ -74,7 +81,7 @@ class PreignitionArticle extends Base {
       <lif-document .log="${this.log}" path="/resources/${this.state}/article/${this.articleId}" @data-changed="${ e => {this.article = e.detail.value}}"></lif-document>
       <lif-document .log="${this.log}" path="/locale/${this.state}/article/${this.articleId}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lif-document>
       
-      ${this.article && this.article.articleMainImage ? html `<img class="hero" src="${this.article && this.article.articleMainImage.url}" alt='${this.localeArticle && this.localeArticle.articleMainImageAlt}'>` : ''}  
+      ${this.article && this.article.hero ? html `<img class="hero" src="${this.article && this.article.hero.url}" alt='${this.localeArticle && this.localeArticle.heroAlt}'>` : ''}  
       <article class="main">
         
          <nav>
