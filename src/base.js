@@ -8,8 +8,7 @@
 
 import { LitElement, css } from 'lit-element';
 // import { SelectMixin, DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
-import { DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
-import { LitNotify } from '@morbidick/lit-element-notify';
+import { DefaultValueMixin, DoNotSetUndefinedValue, LitNotify } from '@preignition/preignition-mixin';
 
 import { default as typography} from './styles/material/typography.js';
 import { default as globalStyle} from './styles/material/global.js';

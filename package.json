@@ -35,7 +35,6 @@
     "@material/mwc-fab": "^0.18.0",
     "@material/mwc-icon": "^0.18.0",
     "@material/mwc-ripple": "^0.18.0",
-    "@morbidick/lit-element-notify": "^1.1.1",
     "@preignition/lit-firebase": "link:../lit-firebase",
     "@preignition/preignition-mixin": "^1.9.1",
     "@preignition/preignition-util": "link:../preignition-util",
