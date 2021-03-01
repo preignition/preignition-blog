@@ -4,7 +4,25 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { Base } from './base.js';
 
 import '@material/mwc-fab';
+import routerMixin from '@preignition/preignition-router'
 // import '@material/mwc-icon';
+
+const ROUTES = [{
+  path: 'articles',
+  component: document.createElement('div'),
+  render: function(info) {
+    console.info('articles')
+    this.page = 'articles';
+  }
+}, {
+  path: 'article/:articleId',
+  component: document.createElement('div'),
+  render: function(info) {
+      console.info('article', info.params.articleId)
+      this.page = 'article';
+      this.articleId = info.params.articleId;
+    }
+  }]
 
 /*
   Blog App container
@@ -12,8 +30,7 @@ import '@material/mwc-fab';
   root element containing Blog application
  */
 
-
-class App extends Base {
+class App extends routerMixin(Base, ROUTES) {
   static get styles() {
     return [
       super.styles,
@@ -117,9 +134,9 @@ class App extends Base {
   render() {
     
     return html `
-      <app-route .route="${this.route}" id="mainRoute" pattern="/:channel/:page" @data-changed="${this.onRouteData}"></app-route>
-      <app-route .route="${this.route}" pattern="/:channel/article/:articleId" @data-changed="${this.onRouteDataArticle}"></app-route>
-
+      <!-- <app-route .route="${this.route}" id="mainRoute" pattern="/:channel/:page" @data-changed="${this.onRouteData}"></app-route> -->
+      <!-- <app-route .route="${this.route}" pattern="/:channel/article/:articleId" @data-changed="${this.onRouteDataArticle}"></app-route> -->
+      <router-slot @changestate="${this.changestate}"></router-slot>
       ${this.page === 'articles' ? html `
       <header>
         <h1 class="title">${this.appTitle}</h1>
@@ -130,11 +147,11 @@ class App extends Base {
         <section>
         ${cache(
           this.page === 'article'
-            ? html`<pblog-article .language="${this.language}" .articleId="${this.articleId}"></preigntion-article>`
+            ? html`<pblog-article .language="${this.language}" .articleId="${this.articleId}"></pblog-article>`
             : this.page === 'articles'
               ? html`<pblog-articles 
                 .path="${this.blogType === 'local' ? this.getLocalPath(this.channel, this.entityId) : this.getGlobalPath(this.channel)}" 
-                .language="${this.language}" ></preigntion-articles>` : ''
+                .language="${this.language}" ></pblog-articles>` : ''
          )}
         </section>
         <!--aside>
@@ -163,8 +180,7 @@ class App extends Base {
       page: { type: String },
       pages: { type: Array },
       smallScreen: { type: Boolean },
-      route: { type: Object },
-
+      
       entityType: { type: String },
       entityId: { type: String, attribute: 'entity-id' },
 
@@ -214,6 +230,14 @@ class App extends Base {
     });
   }
 
+  /*
+   * @override router-mixin
+   */
+  changestate(e) {
+    this.matchedRoute = e.detail.match;
+    this.renderRoute(this.routes, this.matchedRoute);
+  }
+
   getLocalPath(channel, id) {
      return `/${this.entityType}Data/channel/${id}/published/${channel}/byType/article`;
   }
@@ -222,42 +246,42 @@ class App extends Base {
     return `/channel/published/${channel}/byType/article`;
   }
 
-  get mainRoute() {
-    const mainRoute = this.renderRoot.querySelector('#mainRoute')
-    return mainRoute && mainRoute.route || {};
-  }
+  // get mainRoute() {
+  //   const mainRoute = this.renderRoot.querySelector('#mainRoute')
+  //   return mainRoute && mainRoute.route || {};
+  // }
 
-  onRouteData(e) {
-    this.updateComplete.then(() => { 
-      this.log && console.info('routeData', e.detail.value);
-      this.routeData = e.detail.value;
-      const {prefix} = this.mainRoute;
-      const {page, channel} = this.routeData;
-      if (!channel) {
-        this.channel = this.channel || 'default';
-        this.page = 'articles';
-        window.history.pushState(window.history.state || {}, '',  `${prefix || ''}/${this.channel}/articles`);
-        return 
-      }
-      this.channel = channel;
-      if (this.pages.indexOf(page) > -1) {
-        this.page = page;
-      } else {
-        this.page = 'articles';
-        window.history.pushState(window.history.state || {}, '',  `${prefix || ''}/${this.channel || 'default'}/articles`);
-      }
-    });
-  }
+  // onRouteData(e) {
+  //   this.updateComplete.then(() => { 
+  //     this.log && console.info('routeData', e.detail.value);
+  //     this.routeData = e.detail.value;
+  //     const {prefix} = this.mainRoute;
+  //     const {page, channel} = this.routeData;
+  //     if (!channel) {
+  //       this.channel = this.channel || 'default';
+  //       this.page = 'articles';
+  //       window.history.pushState(window.history.state || {}, '',  `${prefix || ''}/${this.channel}/articles`);
+  //       return 
+  //     }
+  //     this.channel = channel;
+  //     if (this.pages.indexOf(page) > -1) {
+  //       this.page = page;
+  //     } else {
+  //       this.page = 'articles';
+  //       window.history.pushState(window.history.state || {}, '',  `${prefix || ''}/${this.channel || 'default'}/articles`);
+  //     }
+  //   });
+  // }
 
-  onRouteDataArticle(e) {
-    this.updateComplete.then(() => { 
-      this.log && console.info('routeDataArticle', e.detail.value);
-      const routeData = e.detail.value;
-      if (routeData.articleId) {
-        this.articleId = routeData.articleId;
-      }
-    })
-  }
+  // onRouteDataArticle(e) {
+  //   this.updateComplete.then(() => { 
+  //     this.log && console.info('routeDataArticle', e.detail.value);
+  //     const routeData = e.detail.value;
+  //     if (routeData.articleId) {
+  //       this.articleId = routeData.articleId;
+  //     }
+  //   })
+  // }
 
   onShare(e) {
     console.info('not yet implemented')
