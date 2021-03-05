@@ -47,7 +47,6 @@
     "pwa-helpers": "^0.9.1"
   },
   "devDependencies": {
-    "@open-wc/eslint-config": "^2.0.6",
     "@open-wc/testing": "^2.5.16",
     "@open-wc/testing-karma": "^3.3.19",
     "@open-wc/testing-karma-bs": "^1.3.62",
@@ -89,12 +88,6 @@
       "@preignition/lit-firebase",
       "@preignition/preignition-mixin",
       "@preignition/preignition-util"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "@open-wc/eslint-config",
-      "eslint-config-prettier"
     ]
   },
   "prettier": "@open-wc/prettier-config",

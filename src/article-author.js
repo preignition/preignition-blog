@@ -3,7 +3,6 @@ import { Base } from './base.js';
 
 
 class ArticleAuthor extends Base {
-
   static get styles() {
     return [
       super.styles,
@@ -73,7 +72,7 @@ class ArticleAuthor extends Base {
       ...super.properties,
 
       /*
-       * `articleId` 
+       * `articleId`
        */
       articleId: {
         type: String,
@@ -93,21 +92,21 @@ class ArticleAuthor extends Base {
       timestamp: {
         type: Number,
       },
-    }
+    };
   }
 
   render() {
     return html `
       <lif-document .log="${this.log}" path="/access/resource/user/${this.articleId}/byType/article" @data-changed="${this.onUser}"></lif-document>
-      <lif-document path="/resourceMeta/${this.articleId}/published/timestamp" @data-changed="${ e => {this.timestamp = e.detail.value}}"></lif-document>
+      <lif-document path="/resourceMeta/${this.articleId}/published/timestamp" @data-changed="${e => {this.timestamp = e.detail.value;}}"></lif-document>
       <div class="authors">
         <div class="photos">
-          ${(this.editors || [] ).map(editor => html`<div class="photo"><img src="${editor.photoURL}" alt="${editor.displayName}"></div>`).reverse()}
+          ${(this.editors || []).map(editor => html`<div class="photo"><img src="${editor.photoURL}" alt="${editor.displayName}"></div>`).reverse()}
         </div>
         <div class="names-date">
-          <div class="names"><span>${(this.editors || [] ).map(editor => editor.displayName).join(', ')}</span>
+          <div class="names"><span>${(this.editors || []).map(editor => editor.displayName).join(', ')}</span>
           </div>
-          <div class="date">${new Date(this.timestamp).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) }</div>
+          <div class="date">${new Date(this.timestamp).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</div>
         </div>
       </div>
     
@@ -117,15 +116,15 @@ class ArticleAuthor extends Base {
   async onUser(e) {
     const users = e.detail.value;
     this.editors = await Promise.all(Object.keys(users)
-      .sort((a, b) => users[a].owner ? -1 : 1)
+      .sort((a, b) => (users[a].owner ? -1 : 1))
       .map(async k => {
         const editor = await {
           userID: k,
           displayName: await firebase.database().ref(`/userData/profile/${k}/displayName`).once('value').then(snap => snap.val()),
           photoURL: await firebase.database().ref(`/userData/profile/${k}/photoURL`).once('value').then(snap => snap.val())
-        }
+        };
         return editor;
-      }))
+      }));
   }
 }
 

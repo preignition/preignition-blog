@@ -1,10 +1,9 @@
 import { html, css } from 'lit-element';
 import { Base } from './base.js';
 
-import '@preignition/lit-firebase'
+import '@preignition/lit-firebase';
 
 class PreignitionArticles extends Base {
-
   static get styles() {
     return [
     super.styles,
@@ -50,7 +49,7 @@ class PreignitionArticles extends Base {
       }
     `
     ];
-  };
+  }
 
   /**
    * Implement `render` to define a template for your element.
@@ -59,11 +58,11 @@ class PreignitionArticles extends Base {
     return html `
       <lif-query path="${this.path}" @data-changed="${this.onDataChanged}"></lif-query>
       <section class="grid">
-          ${this.isLoading 
-             ? html`<h3>Loading Blog articles...</h3>`
-             : (this.articles.length === 0 || !this.articles)
-               ?  html `<h3>No articles yet!</h3>`
-               : (this.articles).sort((a,b) => b.$val - a.$val) .map( article => html`
+          ${this.isLoading ?
+             html`<h3>Loading Blog articles...</h3>` :
+             (this.articles.length === 0 || !this.articles) ?
+               html `<h3>No articles yet!</h3>` :
+               (this.articles).sort((a, b) => b.$val - a.$val) .map(article => html`
                     <pblog-article-card .language="${this.language}" class='grid-item' .articleId="${article.$key}"></pblog-article-card>
                  `)
           }
@@ -81,7 +80,7 @@ class PreignitionArticles extends Base {
       },
 
       isLoading: {
-        type: Boolean, 
+        type: Boolean,
         value: true
       },
 
@@ -96,7 +95,7 @@ class PreignitionArticles extends Base {
         type: String
       }
 
-    }
+    };
   }
 
   onDataChanged(e) {
@@ -104,7 +103,6 @@ class PreignitionArticles extends Base {
     this.isLoading = false;
     this.articles = e.detail.value;
   }
-
 }
 
 export default PreignitionArticles;

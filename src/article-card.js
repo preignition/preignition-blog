@@ -3,14 +3,13 @@ import { parse } from '@preignition/preignition-util';
 import { Base } from './base.js';
 
 import { default as cardCss} from './styles/card.js';
-import '@preignition/lit-firebase'
+import '@preignition/lit-firebase';
 
 
-class  ArticleCard extends Base {
-
+class ArticleCard extends Base {
   static get styles() {
     return [
-    super.styles, 
+    super.styles,
     cardCss,
     css `
       :host {
@@ -127,7 +126,7 @@ class  ArticleCard extends Base {
       ...super.properties,
 
       /*
-       * `articleId` 
+       * `articleId`
        */
       articleId: {
         type: String,
@@ -135,14 +134,14 @@ class  ArticleCard extends Base {
       },
 
       /*
-       * `language` 
+       * `language`
        */
       language: {
         type: String
       },
 
       /*
-       * `article` 
+       * `article`
        */
       article: {
         type: Object,
@@ -150,41 +149,41 @@ class  ArticleCard extends Base {
 
 
       /*
-       * `thumbnail` 
+       * `thumbnail`
        */
       thumbnail: {
         type: String,
       },
 
       /*
-       * `alt` 
+       * `alt`
        */
       alt: {
         type: String,
       },
 
       /*
-       * `title` 
+       * `title`
        */
       title: {
         type: String,
       },
 
       /*
-       * `summary` 
+       * `summary`
        */
       summary: {
         type: String,
       },
-    }
+    };
   }
 
   render() {
     return html`
     <lif-document .log="${this.log}" path="/resources/published/article/${this.articleId}" @data-changed="${this.onPostChanged}"></lif-document>
-    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value}}"></lif-document>
-    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value}}"></lif-document>
-    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/heroAlt" @data-changed="${e => {this.alt = e.detail.value}}"></lif-document>
+    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value;}}"></lif-document>
+    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value;}}"></lif-document>
+    <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/heroAlt" @data-changed="${e => {this.alt = e.detail.value;}}"></lif-document>
     <a href="./article/${this.articleId}" class="card" title="">
        <article class="post-card">
         <div class="cover ${this.thumbnail ? ' with-image' : 'no-image'}">

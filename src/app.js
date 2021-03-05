@@ -1,28 +1,28 @@
 import { html, css, LitElement } from 'lit-element';
 import { cache } from 'lit-html/directives/cache.js';
-import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
+import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 import { Base } from './base.js';
 
 import '@material/mwc-fab';
-import routerMixin from '@preignition/preignition-router'
+import routerMixin from '@preignition/preignition-router';
 // import '@material/mwc-icon';
 
 const ROUTES = [{
   path: 'articles',
   component: document.createElement('div'),
   render: function(info) {
-    console.info('articles')
+    console.info('articles');
     this.page = 'articles';
   }
 }, {
   path: 'article/:articleId',
   component: document.createElement('div'),
   render: function(info) {
-      console.info('article', info.params.articleId)
+      console.info('article', info.params.articleId);
       this.page = 'article';
       this.articleId = info.params.articleId;
     }
-  }]
+  }];
 
 /*
   Blog App container
@@ -132,7 +132,6 @@ class App extends routerMixin(Base, ROUTES) {
   }
 
   render() {
-    
     return html `
       <!-- <app-route .route="${this.route}" id="mainRoute" pattern="/:channel/:page" @data-changed="${this.onRouteData}"></app-route> -->
       <!-- <app-route .route="${this.route}" pattern="/:channel/article/:articleId" @data-changed="${this.onRouteDataArticle}"></app-route> -->
@@ -146,10 +145,10 @@ class App extends routerMixin(Base, ROUTES) {
       <div id="main">
         <section>
         ${cache(
-          this.page === 'article'
-            ? html`<pblog-article .language="${this.language}" .articleId="${this.articleId}"></pblog-article>`
-            : this.page === 'articles'
-              ? html`<pblog-articles 
+          this.page === 'article' ?
+            html`<pblog-article .language="${this.language}" .articleId="${this.articleId}"></pblog-article>` :
+            this.page === 'articles' ?
+              html`<pblog-articles 
                 .path="${this.blogType === 'local' ? this.getLocalPath(this.channel, this.entityId) : this.getGlobalPath(this.channel)}" 
                 .language="${this.language}" ></pblog-articles>` : ''
          )}
@@ -161,8 +160,8 @@ class App extends routerMixin(Base, ROUTES) {
       </div>
 
       <div id="actions">
-        ${this.canEdit ? html `<mwc-fab ?extended=${!this.smallScreen} icon="edit" label="edit" @click="${this.onEdit}"></mwc-fab>` :'' }
-        ${this.page === 'article' ? html `<mwc-fab ?extended=${!this.smallScreen} icon="share" label="share" @click="${this.onShare}"></mwc-fab>` :'' }
+        ${this.canEdit ? html `<mwc-fab ?extended=${!this.smallScreen} icon="edit" label="edit" @click="${this.onEdit}"></mwc-fab>` : ''}
+        ${this.page === 'article' ? html `<mwc-fab ?extended=${!this.smallScreen} icon="share" label="share" @click="${this.onShare}"></mwc-fab>` : ''}
         <mwc-fab id="subscribe" ?extended=${!this.smallScreen} icon="mail_outline" label="subscribe" @click="${this.onSubscribe}"></mwc-fab>
       </div>
       
@@ -180,7 +179,7 @@ class App extends routerMixin(Base, ROUTES) {
       page: { type: String },
       pages: { type: Array },
       smallScreen: { type: Boolean },
-      
+
       entityType: { type: String },
       entityId: { type: String, attribute: 'entity-id' },
 
@@ -200,13 +199,12 @@ class App extends routerMixin(Base, ROUTES) {
         type: String
       },
       /*
-       * `baseURL` 
+       * `baseURL`
        */
       baseURL: {
         type: String,
         attribute: 'base-url'
       },
-
 
 
       /*
@@ -252,7 +250,7 @@ class App extends routerMixin(Base, ROUTES) {
   // }
 
   // onRouteData(e) {
-  //   this.updateComplete.then(() => { 
+  //   this.updateComplete.then(() => {
   //     this.log && console.info('routeData', e.detail.value);
   //     this.routeData = e.detail.value;
   //     const {prefix} = this.mainRoute;
@@ -261,7 +259,7 @@ class App extends routerMixin(Base, ROUTES) {
   //       this.channel = this.channel || 'default';
   //       this.page = 'articles';
   //       window.history.pushState(window.history.state || {}, '',  `${prefix || ''}/${this.channel}/articles`);
-  //       return 
+  //       return
   //     }
   //     this.channel = channel;
   //     if (this.pages.indexOf(page) > -1) {
@@ -274,7 +272,7 @@ class App extends routerMixin(Base, ROUTES) {
   // }
 
   // onRouteDataArticle(e) {
-  //   this.updateComplete.then(() => { 
+  //   this.updateComplete.then(() => {
   //     this.log && console.info('routeDataArticle', e.detail.value);
   //     const routeData = e.detail.value;
   //     if (routeData.articleId) {
@@ -284,17 +282,16 @@ class App extends routerMixin(Base, ROUTES) {
   // }
 
   onShare(e) {
-    console.info('not yet implemented')
+    console.info('not yet implemented');
   }
 
   onEdit(e) {
-    console.info('not yet implemented')
+    console.info('not yet implemented');
   }
 
   onSubscribe(e) {
-    console.info('not yet implemented')
+    console.info('not yet implemented');
   }
-
 }
 
 export default App;

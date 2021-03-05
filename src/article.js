@@ -2,18 +2,17 @@ import { html, css } from 'lit-element';
 import { parse } from '@preignition/preignition-util';
 import { Base } from './base.js';
 
-import "@lit-element-bootstrap/breadcrumb";
+import '@lit-element-bootstrap/breadcrumb';
 
 /**
  *  Display in individual blog article
- * 
+ *
  * @element pblog-article
  */
 class PreignitionArticle extends Base {
-
    static get styles() {
     return [
-    super.styles, 
+    super.styles,
     css `
       :host {
         display: block;
@@ -72,14 +71,13 @@ class PreignitionArticle extends Base {
    }
 
 
-
   /**
    * Implement `render` to define a template for your element.
    */
   render() {
     return html`
-      <lif-document .log="${this.log}" path="/resources/${this.state}/article/${this.articleId}" @data-changed="${ e => {this.article = e.detail.value}}"></lif-document>
-      <lif-document .log="${this.log}" path="/locale/${this.state}/article/${this.articleId}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value}}"></lif-document>
+      <lif-document .log="${this.log}" path="/resources/${this.state}/article/${this.articleId}" @data-changed="${e => {this.article = e.detail.value;}}"></lif-document>
+      <lif-document .log="${this.log}" path="/locale/${this.state}/article/${this.articleId}/${this.language}" @data-changed="${e => {this.localeArticle = e.detail.value;}}"></lif-document>
       
       ${this.article && this.article.hero ? html `<img class="hero" src="${this.article && this.article.hero.url}" alt='${this.localeArticle && this.localeArticle.heroAlt}'>` : ''}  
       <article class="main">
@@ -91,31 +89,31 @@ class PreignitionArticle extends Base {
           </bs-breadcrumb>
         </nav>
 
-        ${this.localeArticle 
-          ? html `
+        ${this.localeArticle ?
+          html `
             <h1 class="title">${this.localeArticle.title}</h1>
-            <h3 class="summary">${ parse(this.localeArticle.summary)}</h3>
+            <h3 class="summary">${parse(this.localeArticle.summary)}</h3>
             <pblog-article-author .articleId="${this.articleId}"></pblog-article-author>
-            <div class="content">${ parse(this.localeArticle.content)}</div>
-            `
-          : html `<h3>Loading article ...</h3>`
+            <div class="content">${parse(this.localeArticle.content)}</div>
+            ` :
+          html `<h3>Loading article ...</h3>`
         }
      </article>
 
     `;
   }
 
-  static get properties () {
+  static get properties() {
     return {
 
-      ...super.properties, 
+      ...super.properties,
 
       /**
        * the id of article
        * @type {String}
        */
       articleId: {
-        type: String, 
+        type: String,
         attribute: 'article-id'
       },
 
@@ -135,11 +133,11 @@ class PreignitionArticle extends Base {
        localeArticle: {
         type: Object
       },
-      
+
       language: {
         type: String
       }
-    }
+    };
   }
 }
 
