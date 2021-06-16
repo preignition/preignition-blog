@@ -133,8 +133,6 @@ class App extends routerMixin(Base, ROUTES) {
 
   render() {
     return html `
-      <!-- <app-route .route="${this.route}" id="mainRoute" pattern="/:channel/:page" @data-changed="${this.onRouteData}"></app-route> -->
-      <!-- <app-route .route="${this.route}" pattern="/:channel/article/:articleId" @data-changed="${this.onRouteDataArticle}"></app-route> -->
       <router-slot @changestate="${this.changestate}"></router-slot>
       ${this.page === 'articles' ? html `
       <header>
@@ -182,6 +180,8 @@ class App extends routerMixin(Base, ROUTES) {
 
       entityType: { type: String },
       entityId: { type: String, attribute: 'entity-id' },
+      // @prop {global|local}
+      blogType: { type: String },
 
       appTitle: {
         type: String,
@@ -222,6 +222,7 @@ class App extends routerMixin(Base, ROUTES) {
     // this.page = location.pathname === '/' ? 'articles' : location.pathname.replace('/', '');
     this.pages = ['articles', 'article', 'article-edit'];
     this.language = 'en';
+    this.blogType = 'global';
     this.entityType = 'program';
     installMediaQueryWatcher(`(min-width: 600px)`, (matches) => {
       this.smallScreen = !matches;
