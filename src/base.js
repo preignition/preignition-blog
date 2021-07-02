@@ -8,7 +8,7 @@
 
 import { LitElement, css } from 'lit-element';
 // import { SelectMixin, DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
-import { DefaultValueMixin, DoNotSetUndefinedValue, LitNotify } from '@preignition/preignition-mixin';
+import { DefaultValueMixin, DoNotSetUndefinedValue } from '@preignition/preignition-mixin';
 
 import { default as typography} from './styles/material/typography.js';
 import { default as globalStyle} from './styles/material/global.js';
@@ -25,12 +25,11 @@ const get = (obj, prop) => obj[prop];
 const set = n => (obj, prop) => (obj[prop] = n);
 
 export class Base extends
-LitNotify(
   DefaultValueMixin(
-    // SelectMixin(
       DoNotSetUndefinedValue(
-        LitElement))) {
-  dispatch(name) {
+        LitElement)) {
+  
+   dispatch(name) {
     this.dispatchEvent(new CustomEvent(`${name}-changed`, {
       detail: {
         value: this[name]

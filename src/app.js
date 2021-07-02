@@ -3,8 +3,15 @@ import { cache } from 'lit-html/directives/cache.js';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 import { Base } from './base.js';
 
+import './article'
+import './articles'
+import './article-card'
+import './article-author'
+
 import '@material/mwc-fab';
 import routerMixin from '@preignition/preignition-router';
+import '@lit-element-bootstrap/breadcrumb';
+
 // import '@material/mwc-icon';
 
 const ROUTES = [{
@@ -22,7 +29,11 @@ const ROUTES = [{
       this.page = 'article';
       this.articleId = info.params.articleId;
     }
-  }];
+  }, {
+    path: '**', 
+    redirectTo: 'articles'
+  }
+];
 
 /*
   Blog App container
@@ -47,8 +58,9 @@ class App extends routerMixin(Base, ROUTES) {
       .sub-title {
         color: var(--secondary-text-color);
       }
-
-     
+      pblog-article {
+        margin-bottom: 200px;
+      }
       
       /* we used <div id="main"> instead of <main> 
        * because we want to keep main at appliction level.
@@ -186,12 +198,12 @@ class App extends routerMixin(Base, ROUTES) {
       appTitle: {
         type: String,
         attribute: 'app-title',
-        value: 'Ida-ta Blog'
+        value: 'iData Blog'
       },
 
       appSubTitle: {
         type: String,
-        value: 'Our latest news, updates, and stories about ida-ta',
+        value: 'Our latest news, updates, and stories about iData',
         attribute: 'app-sub-title'
       },
 
@@ -296,3 +308,4 @@ class App extends routerMixin(Base, ROUTES) {
 }
 
 export default App;
+window.customElements.define('pblog-app', App);

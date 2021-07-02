@@ -7,11 +7,13 @@
     "email": "christophe@preignition.org"
   },
   "license": "MIT",
-  "type": "module",
+  "__type": "module",
   "main": "index.js",
   "module": "index.js",
   "scripts": {
-    "start": "es-dev-server -v",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
     "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.js\" --check --ignore-path .gitignore",
@@ -31,20 +33,26 @@
   },
   "dependencies": {
     "@lit-element-bootstrap/breadcrumb": "^1.0.1",
-    "@material/mwc-base": "^0.18.0",
-    "@material/mwc-fab": "^0.18.0",
-    "@material/mwc-icon": "^0.18.0",
-    "@material/mwc-ripple": "^0.18.0",
+    "@material/mwc-base": "^0.21.0",
+    "@material/mwc-fab": "^0.21.0",
+    "@material/mwc-icon": "^0.21.0",
+    "@material/mwc-ripple": "^0.21.0",
     "@preignition/lit-firebase": "link:../lit-firebase",
+    "@preignition/preignition-config": "link:../preignition-config",
     "@preignition/preignition-mixin": "^1.9.1",
+    "@preignition/preignition-router": "link:../preignition-router",
+    "@preignition/preignition-state": "link:../preignition-state",
     "@preignition/preignition-util": "link:../preignition-util",
-    "dompurify": "^2.0.15",
+    "dompurify": "^2.2.9",
     "lit-element": "^2.4.0",
+    "lit-element-state": "^1.7.0",
     "lit-html": "^1.3.0",
+    "lit-translate": "^1.2.1",
     "local-time": "^2.1.0",
-    "marked": "^1.1.1",
+    "marked": "^2.1.3",
     "prettier": "^2.0.5",
-    "pwa-helpers": "^0.9.1"
+    "pwa-helpers": "^0.9.1",
+    "router-slot": "^1.5.4"
   },
   "devDependencies": {
     "@open-wc/testing": "^2.5.16",
@@ -53,11 +61,12 @@
     "deepmerge": "^4.2.2",
     "es-dev-server": "^1.48.1",
     "eslint": "^7.0.0",
-    "firebase": "^7.19.1",
+    "firebase": "^8.6.8",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
     "materialize-css": "^1.0.0",
-    "snowpack": "^1.7.1"
+    "tslib": "^2.3.0",
+    "vite": "^2.3.8"
   },
   "snowpack": {
     "webDependencies": [

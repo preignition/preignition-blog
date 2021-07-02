@@ -2,14 +2,13 @@ import { html, css } from 'lit-element';
 import { parse } from '@preignition/preignition-util';
 import { Base } from './base.js';
 
-import '@lit-element-bootstrap/breadcrumb';
-
+import '@lit-element-bootstrap/breadcrumb/index.js';
 /**
  *  Display in individual blog article
  *
  * @element pblog-article
  */
-class PreignitionArticle extends Base {
+class Article extends Base {
    static get styles() {
     return [
     super.styles,
@@ -17,7 +16,7 @@ class PreignitionArticle extends Base {
       :host {
         display: block;
         border-sizing: border-box;
-        position:relative;
+        position: relative;
       }
 
       .hero {
@@ -85,7 +84,7 @@ class PreignitionArticle extends Base {
          <nav>
           <bs-breadcrumb>
             <bs-breadcrumb-item title="Home" href="/"></bs-breadcrumb-item>
-            <bs-breadcrumb-item title="All Articles" href="../articles" ></bs-breadcrumb-item>
+            <bs-breadcrumb-item title="All articles" href="${window.location.href}/../../articles" ></bs-breadcrumb-item>
           </bs-breadcrumb>
         </nav>
 
@@ -141,4 +140,5 @@ class PreignitionArticle extends Base {
   }
 }
 
-export default PreignitionArticle;
+export default Article;
+window.customElements.define('pblog-article', Article);

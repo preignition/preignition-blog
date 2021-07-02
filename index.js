@@ -1,5 +1,4 @@
-import './index.elements.js'
-export * from './index.class.js';
 import App from './src/app.js';
+import '@lit-element-bootstrap/breadcrumb/index.js';
 export default App;
 

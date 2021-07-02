@@ -184,7 +184,7 @@ class ArticleCard extends Base {
     <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/title" @data-changed="${e => {this.title = e.detail.value;}}"></lif-document>
     <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/summary" @data-changed="${e => {this.summary = e.detail.value;}}"></lif-document>
     <lif-document .log="${this.log}" path="/locale/published/article/${this.articleId}/${this.language}/heroAlt" @data-changed="${e => {this.alt = e.detail.value;}}"></lif-document>
-    <a href="./article/${this.articleId}" class="card" title="">
+    <a href="${window.location.href}/../article/${this.articleId}" class="card" title="">
        <article class="post-card">
         <div class="cover ${this.thumbnail ? ' with-image' : 'no-image'}">
           ${this.thumbnail && this.renderThumbnail(this.thumbnail, this.alt)}
@@ -221,3 +221,4 @@ class ArticleCard extends Base {
 }
 
 export default ArticleCard;
+window.customElements.define('pblog-article-card', ArticleCard);

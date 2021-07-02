@@ -14,6 +14,7 @@ class ArticleAuthor extends Base {
 
       img {
         border: solid white 2px;
+        box-sizing: border-box;
         height: var(--author-image-size, 40px);
         width: var(--author-image-size, 40px);
         display: inline-block;
@@ -129,3 +130,4 @@ class ArticleAuthor extends Base {
 }
 
 export default ArticleAuthor;
+window.customElements.define('pblog-article-author', ArticleAuthor);

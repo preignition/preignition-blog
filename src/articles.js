@@ -3,7 +3,7 @@ import { Base } from './base.js';
 
 import '@preignition/lit-firebase';
 
-class PreignitionArticles extends Base {
+class Articles extends Base {
   static get styles() {
     return [
     super.styles,
@@ -105,4 +105,5 @@ class PreignitionArticles extends Base {
   }
 }
 
-export default PreignitionArticles;
+export default Articles;
+window.customElements.define('pblog-articles', Articles);
